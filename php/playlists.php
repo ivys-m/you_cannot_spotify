@@ -1,4 +1,4 @@
-<?
+<?php
 
 class PlaylistFields
 {
@@ -14,7 +14,7 @@ class PlaylistFields
     ];
 }
 
-function addPlaylist(string $name, string $picture_path = ""): bool
+function addPlaylist(int $user_id, string $name, string $picture_path = ""): bool
 {
     if (empty($name)) {
         return false;
@@ -22,16 +22,25 @@ function addPlaylist(string $name, string $picture_path = ""): bool
 
     global $conn;
 
-    $sql = "insert into playlists (name, picture_path) values (?, ?)";
+    if (!empty($picture_path)) {
+        if (!file_exists($picture_path)) {
+            return false;
+        }
+
+        $sql = "insert into playlists (name, picture_path, fk_user_id_created_by) values (?, ?, ?)";
+    } else {
+        $sql = "insert into playlists (name, fk_user_id_created_by) values (?, ?)";
+    }
+
     $stmt = $conn->prepare($sql);
     if (!$stmt) {
         return false;
     }
 
     if (!empty($picture_path)) {
-        $stmt->bind_param('ss', $name, $picture_path);
+        $stmt->bind_param('ssi', $name, $picture_path, $user_id);
     } else {
-        $stmt->bind_param('s', $name);
+        $stmt->bind_param('si', $name, $user_id);
     }
 
     return $stmt->execute();

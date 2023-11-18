@@ -1,9 +1,8 @@
-<?
-
-header('Content-Type: text/plain');
+<?php
 
 require('php/users.php');
 require('php/playlists.php');
+require('php/songs.php');
 
 $conn;
 $servername = 'localhost';
@@ -16,8 +15,14 @@ if ($conn->connect_error) {
     die('Connection failed \'' . $conn->connect_error . '\'');
 }
 
-addUser('new-user');
+// echo 'user: ';
+// echo addUser('new-user');
+// echo ' - playlist: ';
+// echo addPlaylist(1, 'new-playlist');
+// echo ' - playlist-edit: ';
+// echo updatePlaylistField(1, PlaylistFields::NAME, 'helo');
+// echo ' - playlist: ';
+// echo addPlaylist(1, 'new-playlist-2', 'picture');
 
-updatePlaylistField(1, PlaylistFields::NAME, 'helo');
-addPlaylist('new-playlist');
-addPlaylist('new-playlist-2', 'picture');
+addSong(1, "song-1", "song_1.mp3");
+updateSongFields(1, SongFields::PICTURE_PATH, "new path");
