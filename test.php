@@ -22,5 +22,20 @@ if ($conn->connect_error) {
 // savePlaylistForUser(1, 1);
 
 
-addSongToPlaylist(1, 1);
+// addSongToPlaylist(1, 1);
 // removeSongFromPlaylist(1, 1);
+
+// addUser('mew', 'me', 'meow@mewww.com');
+
+if (singup('meower', 'meomeo', 'meow@gmeow.com')) {
+    echo json_encode(['result' => 'success']);
+} else {
+    echo json_encode(['result' => 'fail']);
+}
+
+$user = login('meowe1', 'meomeo', 'meow@gmeow.com');
+if (!!$user) {
+    echo $user;
+} else {
+    echo json_encode(['result' => 'fail']);
+}

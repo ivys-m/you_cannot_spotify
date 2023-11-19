@@ -14,6 +14,8 @@ drop table if exists users;
 create table if not exists users(
     id int primary key auto_increment not null,
     username varchar(32) not null,
+    password varchar(255) not null,
+    email varchar(255) not null,
     date_of_creation datetime default current_timestamp not null,
     profile_picture_path varchar(255) default null,
     type varchar(255) default 'standard',

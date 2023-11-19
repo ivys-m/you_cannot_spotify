@@ -21,6 +21,9 @@ class FileNotFoundException extends Exception
     }
 }
 
+// wtf
+// class _InvalidFieldException extends _InvalidFieldException {}
+
 class InvalidFieldException extends Exception
 {
     protected string $field;

@@ -5,30 +5,87 @@ require_once 'errors.php';
 class UserFields
 {
     const ID = 'id';
+    const PASSWORD = 'password';
     const USERNAME = 'username';
+    const EMAIL = 'email';
     const PROFILE_PICTURE_PATH = 'profile_picture_path';
     const TYPE = 'type';
 
-    const ALLOWED_FIELDS = [UserFields::USERNAME, UserFields::PROFILE_PICTURE_PATH, UserFields::TYPE];
+    const ALLOWED_FIELDS = [UserFields::USERNAME, UserFields::PASSWORD, UserFields::EMAIL, UserFields::PROFILE_PICTURE_PATH, UserFields::TYPE];
 }
 
-function addUser(string $username): void
+function checkForUserRecord(string $email): array
+{
+    if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        throw new InvalidFieldException(UserFields::EMAIL, $email);
+    }
+
+    global $conn;
+
+    $sql = "select * from users where email = '$email' limit 1";
+    $stmt = $conn->prepare($sql);
+    if (!$stmt) {
+        throw new mysqli_sql_exception('stmt error');
+    }
+
+    $stmt->execute();
+    $stmt->store_result();
+
+    if (!($stmt->num_rows > 0)) {
+        throw new RecordNotFoundException('users');
+    }
+
+    $stmt->bind_result($user_id, $username, $password, $res_email, $date_of_creation, $profile_picture_path, $type, $active);
+    $stmt->fetch();
+
+    $user = [
+        'id' => $user_id,
+        'username' => $username,
+        'password' => $password,
+        'email' => $res_email,
+        'date_of_creation' => $date_of_creation,
+        'profile_picture_path' => $profile_picture_path,
+        'type' => $type,
+        'active' => $active,
+    ];
+
+    return $user;
+}
+
+function addUser(string $username, string $password, $email): bool
 {
     if (empty($username)) {
         throw new InvalidFieldException(UserFields::USERNAME, $username);
     }
 
-    global $conn;
-
-    $sql = "insert into users (username) values (?)";
-    $stmt = $conn->prepare($sql);
-    if (!$stmt) {
-        throw new Exception('stmt exception');
+    if (empty($password)) {
+        throw new InvalidFieldException(UserFields::PASSWORD, $password);
     }
 
-    $stmt->bind_param('s', $username);
+    if (empty($email) || !filter_var($email, FILTER_SANITIZE_EMAIL)) {
+        throw new InvalidFieldException(UserFields::PASSWORD, $email);
+    }
+
+    try {
+        checkForUserRecord($email);
+        return false;
+    } catch (\Throwable $th) {
+    }
+
+    global $conn;
+
+    $sql = "insert into users (username, password, email) values (?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    if (!$stmt) {
+        throw new mysqli_sql_exception('stmt exception');
+    }
+
+    $encrypted_password = md5($password);
+    $stmt->bind_param('sss', $username, $encrypted_password, $email);
 
     $stmt->execute();
+
+    return true;
 }
 
 function updateUserField(int $id, string $field, string $value): void
@@ -49,6 +106,10 @@ function updateUserField(int $id, string $field, string $value): void
         throw new FileNotFoundException($value);
     }
 
+    if ($field === UserFields::EMAIL && !filter_var($value, FILTER_SANITIZE_EMAIL)) {
+        throw new InvalidFieldException($field, $value);
+    }
+
     global $conn;
 
     $sql = "UPDATE users SET $field = ? WHERE id = ?";
@@ -61,4 +122,24 @@ function updateUserField(int $id, string $field, string $value): void
     $stmt->bind_param('si', $value, $id);
 
     $stmt->execute();
+}
+
+function singup(string $username, string $password, string $email): bool
+{
+    return addUser($username, $password, $email);
+}
+
+function login(string $username, string $password, string $email): bool|string
+{
+    try {
+        $record = checkForUserRecord($email);
+    } catch (\Throwable $th) {
+        return false;
+    }
+
+    if ($record['username'] !== $username || $record['password'] !== md5($password)) {
+        return false;
+    }
+
+    return json_encode($record);
 }
