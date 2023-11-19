@@ -1,3 +1,9 @@
+<?php
+session_start();
+$_SESSION['email'] = 'meow';
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,7 +45,10 @@
     <div class="home-content">
         <div class="text">
             <!-- <h2 class="text-center">you can (not) spotify</h2> -->
-            fuck
+            <!-- fuck -->
+
+            <div class="header"></div>
+
         </div>
     </div>
 

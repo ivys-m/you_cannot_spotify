@@ -2,6 +2,8 @@
 
 require_once 'errors.php';
 
+session_start();
+
 class UserFields
 {
     const ID = 'id';
@@ -22,7 +24,7 @@ function checkForUserRecord(string $email): array
 
     global $conn;
 
-    $sql = "select * from users where email = '$email' limit 1";
+    $sql = "select * from users where email = '$email' and active = 1 limit 1";
     $stmt = $conn->prepare($sql);
     if (!$stmt) {
         throw new mysqli_sql_exception('stmt error');
@@ -124,9 +126,25 @@ function updateUserField(int $id, string $field, string $value): void
     $stmt->execute();
 }
 
-function singup(string $username, string $password, string $email): bool
+function singup(string $username, string $password, string $email): bool|string
 {
-    return addUser($username, $password, $email);
+    $result = addUser($username, $password, $email);
+
+
+    if (!$result) {
+        return false;
+    }
+
+    $record = checkForUserRecord($email);
+
+    $_SESSION['id'] = $record['id'];
+    $_SESSION['username'] = $record['username'];
+    $_SESSION['email'] = $record['email'];
+    $_SESSION['date_of_creation'] = $record['date_of_creation'];
+    $_SESSION['profile_picture_path'] = $record['profile_picture_path'];
+    $_SESSION['type'] = $record['type'];
+
+    return $record;
 }
 
 function login(string $username, string $password, string $email): bool|string
@@ -140,6 +158,13 @@ function login(string $username, string $password, string $email): bool|string
     if ($record['username'] !== $username || $record['password'] !== md5($password)) {
         return false;
     }
+
+    $_SESSION['id'] = $record['id'];
+    $_SESSION['username'] = $record['username'];
+    $_SESSION['email'] = $record['email'];
+    $_SESSION['date_of_creation'] = $record['date_of_creation'];
+    $_SESSION['profile_picture_path'] = $record['profile_picture_path'];
+    $_SESSION['type'] = $record['type'];
 
     return json_encode($record);
 }
