@@ -1,0 +1,12 @@
+:root {
+    --dark-background: rgb(0, 0, 0);
+    --background: rgb(36, 36, 36);
+    --text-color: rgb(255, 255, 255);
+
+    --scrollbar-color: #131313;
+
+    --sidebar-background: rgb(18, 18, 18);
+    --sidebar-input-backgronud: rgb(36, 36, 36);
+
+    --controls-background: rgb(0, 0, 0);
+}

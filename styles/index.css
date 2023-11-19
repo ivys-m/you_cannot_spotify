@@ -1,0 +1,14 @@
+@import url('colors.css');
+@import url('sidebar.css');
+@import url('controls.css');
+
+body {
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    background: var(--background);
+
+    /* firefox */
+    scrollbar-color: var(--sidebar-background) var(--sidebar-background);
+}

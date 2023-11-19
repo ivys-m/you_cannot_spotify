@@ -1,8 +1,10 @@
 <?php
 
-require('php/users.php');
-require('php/playlists.php');
-require('php/songs.php');
+require_once 'php/db/users.php';
+require_once 'php/db/playlists.php';
+require_once 'php/db/songs.php';
+require_once 'php/db/saved.php';
+require_once 'php/db/contains.php';
 
 $conn;
 $servername = 'localhost';
@@ -15,14 +17,10 @@ if ($conn->connect_error) {
     die('Connection failed \'' . $conn->connect_error . '\'');
 }
 
-// echo 'user: ';
-// echo addUser('new-user');
-// echo ' - playlist: ';
-// echo addPlaylist(1, 'new-playlist');
-// echo ' - playlist-edit: ';
-// echo updatePlaylistField(1, PlaylistFields::NAME, 'helo');
-// echo ' - playlist: ';
-// echo addPlaylist(1, 'new-playlist-2', 'picture');
+// addUser('meower');
+// addPlaylist(1, 'paylist', './db/songs/pictures/test_picture.png');
+// savePlaylistForUser(1, 1);
 
-addSong(1, "song-1", "song_1.mp3");
-updateSongFields(1, SongFields::PICTURE_PATH, "new path");
+
+addSongToPlaylist(1, 1);
+// removeSongFromPlaylist(1, 1);
