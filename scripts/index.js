@@ -1,5 +1,16 @@
 import { createLibrary } from './sidebar.js'
 
-fetch('test.php')
-	.then((response) => response.text())
-	.then((data) => console.log(data))
+const changeContent = (fileToReadContentFrom) => {
+	fetch(fileToReadContentFrom, {
+		method: 'GET',
+	})
+		.then((response) => response.text())
+		.then((data) => {
+			console.log(data)
+		})
+		.catch((err) => {
+			console.error(err)
+		})
+}
+
+changeContent('php/content/homepage.php')
