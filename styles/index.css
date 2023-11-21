@@ -1,6 +1,7 @@
 @import url('colors.css');
 @import url('sidebar.css');
 @import url('controls.css');
+@import url('header.css');
 
 body {
     position: relative;

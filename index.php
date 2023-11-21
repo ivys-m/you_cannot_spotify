@@ -47,7 +47,15 @@ $_SESSION['email'] = 'meow';
             <!-- <h2 class="text-center">you can (not) spotify</h2> -->
             <!-- fuck -->
 
-            <div class="header"></div>
+            <div class="header">
+                <div class="text-container">
+                    <h2>meow meow</h2>
+                </div>
+
+                <div class="profile-container">
+                    <i class="bx bx-music"></i>
+                </div>
+            </div>
 
         </div>
     </div>

@@ -19,7 +19,7 @@
 }
 
 .sidebar.active {
-    width: 240px;
+    width: 320px;
 }
 
 .sidebar .logo-content .logo {
@@ -69,6 +69,11 @@
     max-height: 100vh;
     height: 100%;
     overflow-y: auto;
+}
+
+.sidebar .libraries-container li,
+.sidebar.active .libraries-container li {
+    width: 97%;
 }
 
 /* for non firefox browsers */
@@ -207,6 +212,6 @@
 
 
 .sidebar.active~.home-content {
-    width: calc(100% - 240px);
-    left: 240px;
+    width: calc(100% - 320px);
+    left: 320px;
 }
