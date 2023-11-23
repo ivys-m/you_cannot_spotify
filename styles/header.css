@@ -1,15 +1,38 @@
-
 .header {
     height: 5vh;
-    width: 100vw;
+    width: calc(100% - 2 * 10px);
+    background: var(--header-background);
+    margin: 10px;
+    border-radius: 14px;
+    position: relative;
 }
 
-.text-container {
-    margin-left: 1vw;
+.message-container {
+    position: absolute;
+    left: 1%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.arrow-container {
+    position: absolute;
+    display: flex;
+    left: 47.5%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.arrow-active {
+    color: var(--text-color);
+}
+
+.arrow-inactive {
+    color: var(--gray-text-color);
 }
 
 .profile-container {
-    position: relative;
-    left: 94%;
-    top: -87.5%;
+    position: absolute;
+    right: 1%;
+    top: 50%;
+    transform: translateY(-50%);
 }
