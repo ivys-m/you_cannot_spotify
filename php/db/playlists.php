@@ -79,3 +79,33 @@ function updatePlaylistField(int $id, string $field, $value): void
 
     $stmt->execute();
 }
+
+function fetchSavedPlaylsitsForUser(int $user_id): array {
+    if ($user_id < 0) {
+        throw new InvalidFieldException('user_id', $user_id);
+    }
+
+    $sql = "SELECT playlists.*  from playlists
+            join saved on playlists.id = saved.fk_playlist_id
+            where playlists.active = 1 and saved.active = 1 and saved.fk_user_id = ?";
+
+    global $conn;
+    $stmt = $conn->prepare($sql);
+    if (!$stmt) {
+        throw new mysqli_sql_exception('stmt error');
+    }
+
+    $stmt->bind_param('i', $user_id);
+
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+
+    if ($result->num_rows <= 0) {
+        return [];
+    }
+
+    $playlists = $result->fetch_all(MYSQLI_ASSOC);
+
+    return $playlists;
+}

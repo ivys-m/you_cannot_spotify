@@ -4,22 +4,62 @@ export const userLibrariesContainer = document.querySelector('.playlists-contain
 export const userLibrariesContainerNextButton = document.querySelector('#user-library-next-button')
 export const userLibrariesContainerPrevButton = document.querySelector('#user-library-prev-button')
 
-export const userLibraries = []
+export let userLibraries = []
+let currentIndex = 0
 
 userLibrariesContainerNextButton.addEventListener('click', () => {
-	console.log('next')
+	showNextLibraries()
 })
 
 userLibrariesContainerPrevButton.addEventListener('click', () => {
-	console.log('prev')
+	showPrevLibraries()
 })
 
-export const addLibraryElementToContainer = () => {}
+export const addLibraryElementToContainer = (library) => {
+	userLibrariesContainer.innerHTML += library
+}
 
-export const createLibraryElement = () => {}
+export const createLibraryElement = (library) => {
+	return library
+}
 
-export const showUserLibraries = () => {
+export const showUserLibraries = async () => {
 	userLibrariesContainer.innerHTML = ''
 
-	userLibraries.forEach((library) => createLibraryElement(library))
+	const response = await fetch('./php/index.php', {
+		method: 'POST',
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({
+			playlists: 1,
+		}),
+	})
+
+	const data = await response.json()
+	userLibraries = data
+
+	showNextLibraries()
+}
+
+const showNextLibraries = () => {
+	for (let i = currentIndex; i < currentIndex + 6 && i < userLibraries.length; ++i) {
+		addLibraryElementToContainer(createLibraryElement(userLibraries[i]))
+	}
+	currentIndex += 6
+	updateButtonsState()
+}
+
+const showPrevLibraries = () => {
+	currentIndex -= 12
+	if (currentIndex < 0) {
+		currentIndex = 0
+	}
+	showNextLibraries()
+}
+
+const updateButtonsState = () => {
+	userLibrariesContainerPrevButton.disabled = currentIndex === 0
+	userLibrariesContainerNextButton.disabled = currentIndex >= userLibraries.length
 }

@@ -1,4 +1,9 @@
 import { createLibrary } from './sidebar.js'
+import { showUserLibraries } from './content/homepage.js'
+
+document.addEventListener('DOMContentLoaded', () => {
+	showUserLibraries()
+})
 
 const changeContent = (fileToReadContentFrom) => {
 	fetch(fileToReadContentFrom, {
@@ -13,4 +18,4 @@ const changeContent = (fileToReadContentFrom) => {
 		})
 }
 
-changeContent('php/content/homepage.php')
+// changeContent('php/content/homepage.php')
