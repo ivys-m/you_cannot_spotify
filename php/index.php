@@ -11,18 +11,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $playlists = fetchSavedPlaylsitsForUser($_SESSION['user-id']);
 
-        foreach ($playlists as $playlist) {
-?>
-            <a class="playlist-container">
-                <div class="playlist-image-container">
-                    <img class='bx' src='<?= $playlist[PlaylistFields::PICTURE_PATH] ?>'></img>
-                </div>
-                <div class="playlist-title">
-                    <h6><?= $playlist[PlaylistFields::NAME] ?></h6>
-                </div>
-            </a>
-<?php
-        }
-        
+        echo json_encode($playlists);
     }
 }

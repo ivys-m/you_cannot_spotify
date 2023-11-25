@@ -2,7 +2,7 @@
 
 class FileNotFoundException extends Exception
 {
-    protected string $filepath;
+    protected $filepath;
 
     public function __construct(string $filepath)
     {
@@ -21,13 +21,10 @@ class FileNotFoundException extends Exception
     }
 }
 
-// wtf
-// class _InvalidFieldException extends _InvalidFieldException {}
-
 class InvalidFieldException extends Exception
 {
-    protected string $field;
-    protected string $value;
+    protected $field;
+    protected $value;
 
     public function __construct(string $field, $value)
     {
@@ -53,7 +50,7 @@ class InvalidFieldException extends Exception
 
 class RecordNotFoundException extends Exception
 {
-    protected string $table;
+    protected $table;
 
     public function __construct(string $table)
     {

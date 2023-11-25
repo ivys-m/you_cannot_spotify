@@ -37,8 +37,9 @@
 
 .playlist-container {
     flex: 0 0 auto;
-    width: 14.80%;
-    height: 15vh;
+    width: 100px;
+    max-height: 15vh;
+    max-width: 800px;
     margin-right: 20px;
     text-align: center;
     text-decoration: none;

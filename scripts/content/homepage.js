@@ -16,7 +16,21 @@ userLibrariesContainerPrevButton.addEventListener('click', () => {
 })
 
 export const addLibraryElementToContainer = (library) => {
-	userLibrariesContainer.innerHTML += library
+	let content = ''
+
+	content += `<a class="playlist-container">`
+
+	content += `<div class="playlist-image-container">`
+	content += `<img src="${library['picture_path']}" alt="${library['name']}">`
+	content += `</div>`
+
+	content += `<div class="playlist-title">`
+	content += `<h6> ${library['name']} </h6>`
+	content += `</div>`
+
+	content += `</a>`
+
+	userLibrariesContainer.innerHTML += content
 }
 
 export const createLibraryElement = (library) => {
@@ -37,7 +51,10 @@ export const showUserLibraries = async () => {
 		}),
 	})
 
-	const data = await response.json()
+	const text = await response.text()
+	console.log(text)
+	const data = JSON.parse(text)
+	console.dir(data)
 	userLibraries = data
 
 	showNextLibraries()
