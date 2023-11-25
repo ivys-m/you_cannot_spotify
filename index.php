@@ -43,7 +43,7 @@
             require('php/header.php');
             ?>
 
-            <div class="main-content text">
+            <div class="main-content text" id="main-content">
                 <?php
                 require('php/content/homepage.php')
                 ?>

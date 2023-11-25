@@ -7,6 +7,9 @@ export const userLibrariesContainerPrevButton = document.querySelector('#user-li
 export let userLibraries = []
 let currentIndex = 0
 
+const getBodyWidth = () => document.querySelector('.playlists-container').getBoundingClientRect().width
+const getLibraryWidth = () => 100 + 20
+
 userLibrariesContainerNextButton.addEventListener('click', () => {
 	showNextLibraries()
 })
@@ -60,20 +63,23 @@ export const showUserLibraries = async () => {
 	showNextLibraries()
 }
 
+const maxShowLibraries = Math.ceil(getBodyWidth() / getLibraryWidth())
+let currentLibraryIndex = -maxShowLibraries
 const showNextLibraries = () => {
-	for (let i = currentIndex; i < currentIndex + 6 && i < userLibraries.length; ++i) {
-		addLibraryElementToContainer(createLibraryElement(userLibraries[i]))
+	userLibrariesContainer.innerHTML = ''
+	currentLibraryIndex += maxShowLibraries
+	for (let i = currentLibraryIndex; i < currentLibraryIndex + maxShowLibraries; i++) {
+		addLibraryElementToContainer(userLibraries[i])
 	}
-	currentIndex += 6
-	updateButtonsState()
 }
 
 const showPrevLibraries = () => {
-	currentIndex -= 12
-	if (currentIndex < 0) {
-		currentIndex = 0
+	userLibrariesContainer.innerHTML = ''
+	currentLibraryIndex -= maxShowLibraries
+	if (currentLibraryIndex <= 0) currentLibraryIndex = 0
+	for (let i = currentLibraryIndex; i < currentLibraryIndex + maxShowLibraries; i++) {
+		addLibraryElementToContainer(userLibraries[i])
 	}
-	showNextLibraries()
 }
 
 const updateButtonsState = () => {
