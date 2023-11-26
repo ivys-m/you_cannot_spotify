@@ -1,3 +1,13 @@
+export const setupPlaylistPage = () => {
+	playlistSetHeaderBackground()
+
+	const actions = document.getElementById('song-actions')
+	actions.addEventListener('click', () => {
+		const songId = actions.getAttribute('data-song-id')
+		console.log(songId)
+	})
+}
+
 export const playlistSetHeaderBackground = () => {
 	console.log('setting bg')
 	const image = document.querySelector('#content-playlist-image')

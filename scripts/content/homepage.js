@@ -1,7 +1,7 @@
 // pain
 
 import { changeContent } from '../index.js'
-import { playlistSetHeaderBackground } from './playlist.js'
+import { setupPlaylistPage } from './playlist.js'
 
 export const userLibrariesContainer = document.querySelector('.playlists-container')
 export const userLibrariesContainerNextButton = document.querySelector('#user-library-next-button')
@@ -16,7 +16,7 @@ export let currentLibraryIndex = -maxShowLibraries
 
 export const setLibraryContent = async (params) => {
 	await changeContent('php/content/playlist.php', params)
-	playlistSetHeaderBackground()
+	setupPlaylistPage()
 }
 
 userLibrariesContainerNextButton.addEventListener('click', () => {
