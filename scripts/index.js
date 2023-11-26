@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const content = document.getElementById('main-content')
 
-export const changeContent = (fileToReadContentFrom, params) => {
+export const changeContent = async (fileToReadContentFrom, params) => {
 	const fetchParams = Object.keys(params)
 		.map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
 		.join('&')
@@ -19,17 +19,21 @@ export const changeContent = (fileToReadContentFrom, params) => {
 		setHeaderMessage(params['header-text'])
 	}
 
-	fetch(fetchUrl, {
-		method: 'GET',
-	})
-		.then((response) => response.text())
-		.then((data) => {
-			content.innerHTML = data
+	try {
+		const response = await fetch(fetchUrl, {
+			method: 'GET',
 		})
-		.catch((err) => {
-			console.error(err)
-			changeContent('php/content/homepage.php')
-		})
+
+		if (!response.ok) {
+			throw new Error(`HTTP error! Status: ${response.status}`)
+		}
+
+		const data = await response.text()
+		content.innerHTML = data
+	} catch (err) {
+		console.error(err)
+		changeContent('php/content/homepage.php')
+	}
 }
 
 // changeContent('php/content/homepage.php')

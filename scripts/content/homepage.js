@@ -1,19 +1,23 @@
 // pain
 
+import { changeContent } from '../index.js'
+import { playlistSetHeaderBackground } from './playlist.js'
+
 export const userLibrariesContainer = document.querySelector('.playlists-container')
 export const userLibrariesContainerNextButton = document.querySelector('#user-library-next-button')
 export const userLibrariesContainerPrevButton = document.querySelector('#user-library-prev-button')
 
-import { changeContent } from '../index.js'
-export const setLibraryContent = (params) => {
-	changeContent('php/content/playlist.php', params)
-}
-
-export let userLibraries = []
-let currentIndex = 0
-
 const getBodyWidth = () => document.querySelector('.playlists-container').getBoundingClientRect().width
 const getLibraryWidth = () => 100 + 20
+
+export let userLibraries = []
+export const maxShowLibraries = Math.ceil(getBodyWidth() / getLibraryWidth())
+export let currentLibraryIndex = -maxShowLibraries
+
+export const setLibraryContent = async (params) => {
+	await changeContent('php/content/playlist.php', params)
+	playlistSetHeaderBackground()
+}
 
 userLibrariesContainerNextButton.addEventListener('click', () => {
 	showNextLibraries()
@@ -75,8 +79,6 @@ export const showUserLibraries = async () => {
 	showNextLibraries()
 }
 
-const maxShowLibraries = Math.ceil(getBodyWidth() / getLibraryWidth())
-let currentLibraryIndex = -maxShowLibraries
 const showNextLibraries = () => {
 	userLibrariesContainer.innerHTML = ''
 	currentLibraryIndex += maxShowLibraries
@@ -92,9 +94,4 @@ const showPrevLibraries = () => {
 	for (let i = currentLibraryIndex; i < currentLibraryIndex + maxShowLibraries; i++) {
 		addLibraryElementToContainer(userLibraries[i])
 	}
-}
-
-const updateButtonsState = () => {
-	userLibrariesContainerPrevButton.disabled = currentIndex === 0
-	userLibrariesContainerNextButton.disabled = currentIndex >= userLibraries.length
 }

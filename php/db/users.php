@@ -2,8 +2,6 @@
 
 require_once 'errors.php';
 
-session_start();
-
 class UserFields
 {
     const ID = 'id';
@@ -167,4 +165,37 @@ function login(string $username, string $password, string $email): bool|string
     $_SESSION['type'] = $record['type'];
 
     return json_encode($record);
+}
+
+function fetchUserById(int $id): array {
+    global $conn;
+
+    $sql = "select * from users where id = '$id' and active = 1";
+    $stmt = $conn->prepare($sql);
+    if (!$stmt) {
+        throw new mysqli_sql_exception('stmt error');
+    }
+
+    $stmt->execute();
+    $stmt->store_result();
+
+    if (!($stmt->num_rows > 0)) {
+        throw new RecordNotFoundException('users');
+    }
+
+    $stmt->bind_result($user_id, $username, $password, $res_email, $date_of_creation, $profile_picture_path, $type, $active);
+    $stmt->fetch();
+
+    $user = [
+        'id' => $user_id,
+        'username' => $username,
+        'password' => $password,
+        'email' => $res_email,
+        'date_of_creation' => $date_of_creation,
+        'profile_picture_path' => $profile_picture_path,
+        'type' => $type,
+        'active' => $active,
+    ];
+
+    return $user;
 }

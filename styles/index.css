@@ -7,62 +7,62 @@
 @import url('content/homepage.css');
 
 html {
-    background: var(--dark-background);
+	background: var(--dark-background);
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Poppins', sans-serif;
 }
 
 body {
-    position: relative;
-    min-height: 100vh;
-    width: 100%;
-    overflow: hidden;
-    background: var(--dark-background) !important;
-    background-color: var(--dark-background) !important;
-    margin: 0;
+	position: relative;
+	min-height: 100vh;
+	width: 100%;
+	overflow: hidden;
+	background: var(--dark-background) !important;
+	background-color: var(--dark-background) !important;
+	margin: 0;
 
-    /* firefox */
-    scrollbar-color: var(--sidebar-background) var(--sidebar-background);
+	/* firefox */
+	scrollbar-color: var(--sidebar-background) var(--sidebar-background);
 }
 
 .home-content {
-    position: absolute;
-    height: calc(100% - 78px);
-    width: calc(100% - 78px - 1%);
-    left: calc(78px + 1%);
-    background: var(--dark-background);
-    transition: all 0.5s ease;
-    z-index: 1;
+	position: absolute;
+	height: calc(100% - 78px);
+	width: calc(100% - 78px - 1%);
+	left: calc(78px + 1%);
+	background: var(--dark-background);
+	transition: all 0.5s ease;
+	z-index: 1;
 }
 
 .home-content .text {
-    font-size: 25px;
-    font-weight: 500;
-    color: var(--text-color);
-    margin-top: 12px;
+	font-size: 25px;
+	font-weight: 500;
+	color: var(--text-color);
+	margin-top: 12px;
 }
 
-.sidebar.active~.home-content {
-    width: calc(100% - 320px - 1%);
-    left: calc(320px + 1%);
+.sidebar.active ~ .home-content {
+	width: calc(100% - 320px - 1%);
+	left: calc(320px + 1%);
 }
 
 .home-container {
-    height: calc(100% - 2*10px);
-    width: calc(100% - 2*10px);
-    margin: 10px;
-    background: linear-gradient(var(--main-background-2), var(--main-background-1));
-    border-radius: 14px;
-    overflow: hidden;
-    box-sizing: border-box;
+	height: calc(100% - 2 * 10px);
+	width: calc(100% - 2 * 10px);
+	margin: 10px;
+	background: linear-gradient(var(--main-background-2), var(--main-background-1));
+	border-radius: 14px;
+	overflow: hidden;
+	box-sizing: border-box;
 }
 
 .main-content {
-    width: 100%;
-    height: 100%;
+	width: 100%;
+	height: 100%;
 }

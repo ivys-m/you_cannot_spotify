@@ -3,6 +3,7 @@
 require_once '../conn.php';
 require_once '../db/playlists.php';
 require_once '../db/contains.php';
+require_once '../db/users.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (!isset($_GET['id']))
@@ -24,16 +25,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     //         echo "$key: $value<br>";
     //     }
     // }
+
+    foreach ($playlist_content as &$song) {
+        $song['author'] = fetchUserById($user_id)[UserFields::USERNAME];
+    }
+
+    $song = $playlist_content[0];
 }
 ?>
 
 <div class="content-playlist-container">
     <div class="content-playlist-container-header">
         <div class="content-playlist-container-image-container">
-            <img src="<?= $playlist[PlaylistFields::PICTURE_PATH]?>">
+            <img src="<?= $playlist[PlaylistFields::PICTURE_PATH]?>" alt="<?= $playlist[PlaylistFields::NAME] ?>" id="content-playlist-image">
         </div>
         <div class="content-playlist-container-text-container">
             <h1><?= $playlist[PlaylistFields::NAME] ?></h1>
+        </div>
+    </div>
+
+    <div class="song-container">
+        <div class="picture-container">
+            <img src="<?=$song[SongFields::PICTURE_PATH]?>" alt="<?=$song[SongFields::NAME]?>">
+        </div>
+        <div class="text-container">
+            <div class="title-container">
+                <h4><?= $song[PlaylistFields::NAME]?></h4>
+            </div>
+            <div class="author-container">
+                <h6><?= $song['author'] ?></h6>
+            </div>
         </div>
     </div>
 </div>
