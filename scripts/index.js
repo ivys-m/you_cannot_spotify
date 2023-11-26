@@ -1,14 +1,15 @@
 import { createLibrary } from './sidebar.js'
-import { showUserLibraries } from './content/homepage.js'
+import { setupHomepage, showUserLibraries } from './content/homepage.js'
 import { setHeaderMessage } from './header.js'
 
 document.addEventListener('DOMContentLoaded', () => {
-	showUserLibraries()
+	setupHomepage()
 })
 
 const content = document.getElementById('main-content')
 
 export const changeContent = async (fileToReadContentFrom, params) => {
+	if (params === undefined) params = {}
 	const fetchParams = Object.keys(params)
 		.map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
 		.join('&')

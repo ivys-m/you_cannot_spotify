@@ -1,14 +1,16 @@
 // pain
 
 import { changeContent } from '../index.js'
+import { createLibrary } from '../sidebar.js'
 import { setupPlaylistPage } from './playlist.js'
 
-export const userLibrariesContainer = document.querySelector('.playlists-container')
-export const userLibrariesContainerNextButton = document.querySelector('#user-library-next-button')
-export const userLibrariesContainerPrevButton = document.querySelector('#user-library-prev-button')
+export const userLibrariesContainer = () => document.querySelector('.playlists-container')
+export const userLibrariesContainerNextButton = () => document.querySelector('#user-library-next-button')
+export const userLibrariesContainerPrevButton = () => document.querySelector('#user-library-prev-button')
+export const createNewLibrary = () => document.querySelector('#user-library-create')
 
-const getBodyWidth = () => document.querySelector('.playlists-container').getBoundingClientRect().width
-const getLibraryWidth = () => 100 + 20
+export const getBodyWidth = () => document.querySelector('.playlists-container').getBoundingClientRect().width
+export const getLibraryWidth = () => 100 + 20
 
 export let userLibraries = []
 export const maxShowLibraries = Math.ceil(getBodyWidth() / getLibraryWidth())
@@ -18,14 +20,6 @@ export const setLibraryContent = async (params) => {
 	await changeContent('php/content/playlist.php', params)
 	setupPlaylistPage()
 }
-
-userLibrariesContainerNextButton.addEventListener('click', () => {
-	showNextLibraries()
-})
-
-userLibrariesContainerPrevButton.addEventListener('click', () => {
-	showPrevLibraries()
-})
 
 export const addLibraryElementToContainer = (library) => {
 	if (library === undefined) return
@@ -49,7 +43,9 @@ export const addLibraryElementToContainer = (library) => {
 	content += `</div>`
 
 	libraryContainer.innerHTML = content
-	userLibrariesContainer.appendChild(libraryContainer)
+	userLibrariesContainer().appendChild(libraryContainer)
+
+	createLibrary(library)
 }
 
 export const createLibraryElement = (library) => {
@@ -57,7 +53,8 @@ export const createLibraryElement = (library) => {
 }
 
 export const showUserLibraries = async () => {
-	userLibrariesContainer.innerHTML = ''
+	currentLibraryIndex = -maxShowLibraries
+	userLibrariesContainer().innerHTML = ''
 
 	const response = await fetch('./php/index.php', {
 		method: 'POST',
@@ -71,20 +68,20 @@ export const showUserLibraries = async () => {
 	})
 
 	const text = await response.text()
-	console.log(text)
 	const data = JSON.parse(text)
-	console.dir(data)
 	userLibraries = data
 
 	showNextLibraries()
+	updateButtonStatuses()
 }
 
 const showNextLibraries = () => {
-	userLibrariesContainer.innerHTML = ''
+	userLibrariesContainer().innerHTML = ''
 	currentLibraryIndex += maxShowLibraries
 	for (let i = currentLibraryIndex; i < currentLibraryIndex + maxShowLibraries; i++) {
 		addLibraryElementToContainer(userLibraries[i])
 	}
+	updateButtonStatuses()
 }
 
 const showPrevLibraries = () => {
@@ -94,4 +91,23 @@ const showPrevLibraries = () => {
 	for (let i = currentLibraryIndex; i < currentLibraryIndex + maxShowLibraries; i++) {
 		addLibraryElementToContainer(userLibraries[i])
 	}
+	updateButtonStatuses()
+}
+
+const updateButtonStatuses = () => {
+	userLibrariesContainerPrevButton().onclick =
+		currentLibraryIndex - maxShowLibraries <= 0 ? undefined : showPrevLibraries
+	userLibrariesContainerNextButton().disabled =
+		currentLibraryIndex + maxShowLibraries >= userLibraries.length ? undefined : showNextLibraries
+}
+
+// userLibrariesContainerNextButton().addEventListener('click', showNextLibraries)
+// userLibrariesContainerPrevButton().addEventListener('click', showPrevLibraries)
+
+export const setupHomepage = async () => {
+	await showUserLibraries()
+
+	createNewLibrary().addEventListener('click', () => {
+		console.log('create')
+	})
 }

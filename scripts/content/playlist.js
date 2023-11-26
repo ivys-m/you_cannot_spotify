@@ -45,7 +45,6 @@ export const setupPlaylistPage = () => {
 }
 
 export const playlistSetHeaderBackground = () => {
-	console.log('setting bg')
 	const image = document.querySelector('#content-playlist-image')
 	const header = document.querySelector('.content-playlist-container-header')
 
@@ -59,12 +58,11 @@ export const playlistSetHeaderBackground = () => {
 		const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height).data
 
 		const color = calculateMostCommonColor(imageData)
-		color[3] = 0.25
+		color[3] = 0.25 // set alpha
 
 		document.documentElement.style.setProperty('--most-common-playlist-color', `rgba(${color.join(',')})`)
 
 		header.classList.add('loaded')
-		console.log('loaded')
 	})
 }
 
