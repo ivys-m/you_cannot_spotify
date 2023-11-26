@@ -4,6 +4,11 @@ export const userLibrariesContainer = document.querySelector('.playlists-contain
 export const userLibrariesContainerNextButton = document.querySelector('#user-library-next-button')
 export const userLibrariesContainerPrevButton = document.querySelector('#user-library-prev-button')
 
+import { changeContent } from '../index.js'
+export const setLibraryContent = (params) => {
+	changeContent('php/content/playlist.php', params)
+}
+
 export let userLibraries = []
 let currentIndex = 0
 
@@ -19,9 +24,17 @@ userLibrariesContainerPrevButton.addEventListener('click', () => {
 })
 
 export const addLibraryElementToContainer = (library) => {
+	if (library === undefined) return
+
 	let content = ''
 
-	content += `<a class="playlist-container">`
+	const libraryContainer = document.createElement('a')
+	libraryContainer.classList.add('playlist-container')
+
+	// user can't see id... I hope
+	libraryContainer.addEventListener('click', () => {
+		setLibraryContent({ 'id': library['id'], 'header-text': library['name'] })
+	})
 
 	content += `<div class="playlist-image-container">`
 	content += `<img src="${library['picture_path']}" alt="${library['name']}">`
@@ -31,9 +44,8 @@ export const addLibraryElementToContainer = (library) => {
 	content += `<h6> ${library['name']} </h6>`
 	content += `</div>`
 
-	content += `</a>`
-
-	userLibrariesContainer.innerHTML += content
+	libraryContainer.innerHTML = content
+	userLibrariesContainer.appendChild(libraryContainer)
 }
 
 export const createLibraryElement = (library) => {

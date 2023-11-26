@@ -97,3 +97,32 @@ function removeSongFromPlaylist(int $song_id, int $playlist_id): void
 {
     containsSetActive($song_id, $playlist_id, 0);
 }
+
+function fetchAllPlaylistContains(int $playlist_id): array { 
+    if ($playlist_id < 0) {
+        throw new InvalidFieldException(ContainsFields::FK_PLAYLIST_ID, $playlist_id);
+    }
+
+    $sql = "SELECT s.*
+              from contains c
+              join songs s on c.fk_song_id = s.id
+              where c.fk_playlist_id = ?
+                and c.active = 1
+                and s.active = 1";
+
+    global $conn;
+    $stmt = $conn->prepare($sql);
+    if (!$stmt) {
+        throw new mysqli_sql_exception('stmt error');
+    }
+
+    $stmt->bind_param('i', $playlist_id);
+
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+
+    $songs = $result->fetch_all(MYSQLI_ASSOC);
+
+    return $songs;
+}

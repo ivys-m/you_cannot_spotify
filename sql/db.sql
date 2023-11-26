@@ -3,7 +3,7 @@
 drop database if exists you_cannot_spotify;
 
 create database if not exists you_cannot_spotify; 
-use database you_cannot_spotify;
+use you_cannot_spotify;
 
 drop table if exists contains;
 drop table if exists saved;

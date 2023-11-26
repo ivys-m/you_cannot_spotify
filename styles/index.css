@@ -3,6 +3,7 @@
 @import url('controls.css');
 @import url('header.css');
 
+@import url('content/playlist.css');
 @import url('content/homepage.css');
 
 html {

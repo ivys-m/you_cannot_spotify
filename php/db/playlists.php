@@ -109,3 +109,31 @@ function fetchSavedPlaylsitsForUser(int $user_id): array {
 
     return $playlists;
 }
+
+function fetchPlaylist(int $id): array {
+    if ($id < 0) {
+        throw new InvalidFieldException('id', $id);
+    }
+
+    $sql = "SELECT * from playlists where id = ? and active = 1";
+
+    global $conn;
+    $stmt = $conn->prepare($sql);
+    if (!$stmt) {
+        throw new mysqli_sql_exception('stmt error');
+    }
+
+    $stmt->bind_param('i', $id);
+
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+
+    if ($result->num_rows <= 0){
+        return [];
+    }
+
+    $playlists = $result->fetch_all(MYSQLI_ASSOC);
+
+    return $playlists;
+}

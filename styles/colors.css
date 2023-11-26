@@ -1,21 +1,21 @@
 :root {
-    --dark-background: rgb(0, 0, 0);
-    --background: rgb(36, 36, 36);
+	--dark-background: rgb(0, 0, 0);
+	--background: rgb(36, 36, 36);
 
-    --gray-text-color: rgb(128, 128, 128);
-    --text-color: rgb(255, 255, 255);
+	--gray-text-color: rgb(128, 128, 128);
+	--text-color: rgb(255, 255, 255);
 
-    --scrollbar-color: #131313;
+	--scrollbar-color: #131313;
 
-    --sidebar-background: rgb(18, 18, 18);
-    --sidebar-input-backgronud: rgb(36, 36, 36);
+	--sidebar-background: rgb(18, 18, 18);
+	--sidebar-input-backgronud: rgb(36, 36, 36);
 
-    --controls-background: rgb(0, 0, 0);
+	--controls-background: rgb(0, 0, 0);
 
-    --main-background-1: rgb(18, 18, 18);
-    --main-background-2: rgb(28, 28, 28);
+	--main-background-1: rgb(18, 18, 18);
+	--main-background-2: rgb(28, 28, 28);
 
-    --header-background: rgb(18, 18, 18);
+	--header-background: rgb(18, 18, 18);
 
-    --playlist-container-background: rgb(18, 18, 18);
+	--playlist-container-background: rgb(18, 18, 18);
 }
