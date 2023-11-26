@@ -1,8 +1,10 @@
 <?php
 
+require_once '../conn.php';
 require_once 'errors.php';
 require_once 'users.php';
 require_once 'playlists.php';
+
 
 class SavedFields
 {
@@ -26,7 +28,7 @@ function savePlaylistForUser(int $user_id, int $playlist_id): void
         throw new InvalidFieldException(SavedFields::FK_PLAYLIST_ID, $playlist_id);
     }
 
-    global $conn;
+    $conn = create_conn();;
 
     $sql = 'insert into saved (fk_user_id, fk_playlist_id) values (?, ?)';
     $stmt = $conn->prepare($sql);
@@ -49,7 +51,7 @@ function checkForSavedRecord(int $user_id, int $playlist_id, int $active): void
         throw new InvalidFieldException(SavedFields::FK_PLAYLIST_ID, $playlist_id);
     }
 
-    global $conn;
+    $conn = create_conn();;
 
     $check_sql = "select * from saved where fk_user_id = ? and fk_playlist_id = ? and active = $active limit 1";
     $check_stmt = $conn->prepare($check_sql);
@@ -71,7 +73,7 @@ function savedSetActive(int $user_id, int $playlist_id, int $active): void
 {
     checkForSavedRecord($user_id, $playlist_id, (int)!$active);
 
-    global $conn;
+    $conn = create_conn();;
 
     $update_sql = "update saved set active = $active where fk_user_id = ? and fk_playlist_id = ?";
     $update_stmt = $conn->prepare($update_sql);
@@ -92,4 +94,17 @@ function deactivatePlaylistForUser($user_id, $playlist_id): void
 function activatePlaylistForUser(int $user_id, $playlist_id): void
 {
     savedSetActive($user_id, $playlist_id, 1);
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $input_json = file_get_contents('php://input');
+    $input = json_decode($input_json, true);
+
+    if (isset($input['set-active'])) {
+        activatePlaylistForUser($_SESSION['user-id'], $input['playlist-id']);
+        echo 'active';
+    } else if (isset($input['set-not-active'])) {
+        deactivatePlaylistForUser($_SESSION['user-id'], $input['playlist-id']);
+        echo 'inactive';
+    } else echo 'unset';
 }

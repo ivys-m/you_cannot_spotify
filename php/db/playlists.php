@@ -26,7 +26,7 @@ function addPlaylist(int $user_id, string $name, string $picture_path = ""): voi
         throw new InvalidFieldException(PlaylistFields::FK_USER_ID_CREATED_BY, $user_id);
     }
 
-    global $conn;
+    $conn = create_conn();;
 
     if (!empty($picture_path)) {
         if (!file_exists($picture_path)) {
@@ -54,7 +54,7 @@ function addPlaylist(int $user_id, string $name, string $picture_path = ""): voi
 
 function updatePlaylistField(int $id, string $field, $value): void
 {
-    global $conn;
+    $conn = create_conn();;
 
     if (empty($field) || !in_array($field, PlaylistFields::ALLOWED_FIELDS)) {
         throw new InvalidFieldException('field', $field);
@@ -89,7 +89,7 @@ function fetchSavedPlaylsitsForUser(int $user_id): array {
             join saved on playlists.id = saved.fk_playlist_id
             where playlists.active = 1 and saved.active = 1 and saved.fk_user_id = ?";
 
-    global $conn;
+    $conn = create_conn();;
     $stmt = $conn->prepare($sql);
     if (!$stmt) {
         throw new mysqli_sql_exception('stmt error');
@@ -117,7 +117,7 @@ function fetchPlaylist(int $id): array {
 
     $sql = "SELECT * from playlists where id = ? and active = 1";
 
-    global $conn;
+    $conn = create_conn();;
     $stmt = $conn->prepare($sql);
     if (!$stmt) {
         throw new mysqli_sql_exception('stmt error');

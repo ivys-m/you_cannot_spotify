@@ -26,7 +26,7 @@ function checkForContainsRecord($song_id, $playlist_id, $active): void
         throw new InvalidFieldException(ContainsFields::FK_PLAYLIST_ID, $playlist_id);
     }
 
-    global $conn;
+    $conn = create_conn();;
 
     $check_sql = "select * from contains where fk_song_id = ? and fk_playlist_id = ? and active = $active limit 1";
     $check_stmt = $conn->prepare($check_sql);
@@ -48,7 +48,7 @@ function containsSetActive(int $song_id, int $playlist_id, int $active): void
 {
     checkForContainsRecord($song_id, $playlist_id, (int)!$active);
 
-    global $conn;
+    $conn = create_conn();;
 
     $update_sql = "update contains set active = $active where fk_song_id = ? and fk_playlist_id = ?";
     $update_stmt = $conn->prepare($update_sql);
@@ -78,7 +78,7 @@ function addSongToPlaylist(int $song_id, int $playlist_id): void
 
     // song isn't already it in playlist
 
-    global $conn;
+    $conn = create_conn();;
 
     $sql = 'insert into contains (fk_song_id, fk_playlist_id) values (?, ?)';
     $stmt = $conn->prepare($sql);
@@ -110,7 +110,7 @@ function fetchAllPlaylistContains(int $playlist_id): array {
                 and c.active = 1
                 and s.active = 1";
 
-    global $conn;
+    $conn = create_conn();;
     $stmt = $conn->prepare($sql);
     if (!$stmt) {
         throw new mysqli_sql_exception('stmt error');

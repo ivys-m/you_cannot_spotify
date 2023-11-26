@@ -1,10 +1,46 @@
 export const setupPlaylistPage = () => {
 	playlistSetHeaderBackground()
 
-	const actions = document.getElementById('song-actions')
-	actions.addEventListener('click', () => {
-		const songId = actions.getAttribute('data-song-id')
-		console.log(songId)
+	// const actions = document.getElementById('song-actions')
+	// actions.addEventListener('click', () => {
+	// 	const songId = actions.getAttribute('data-song-id')
+	// 	console.log(songId)
+	// })
+
+	const savedIcon = document.getElementById('saved-icons')
+	savedIcon.addEventListener('click', () => {
+		const saved = savedIcon.classList.contains('saved')
+		const playlistContainer = document.querySelector('.content-playlist-container')
+		const playlistId = playlistContainer.dataset.id
+		console.log(playlistId)
+
+		const params = {
+			'playlist-id': playlistId,
+		}
+
+		if (saved) {
+			params['set-not-active'] = 1
+		} else {
+			params['set-active'] = 1
+		}
+
+		console.dir(params)
+
+		fetch('php/db/saved.php', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(params),
+		})
+			.then((response) => response.text())
+			.then((data) => {
+				if (data === 'inactive') {
+					savedIcon.classList = 'bx bx-heart'
+				} else if (data === 'active') {
+					savedIcon.classList = 'bx bxs-heart saved'
+				}
+			})
 	})
 }
 

@@ -16,6 +16,7 @@
 	grid-template-columns: 25% 75%;
 	align-items: center;
 	background: var(--playlist-container-background);
+	position: relative;
 }
 
 .content-playlist-container-header::before {
@@ -46,6 +47,20 @@
 }
 
 .content-playlist-container-text-container h1 {
+}
+
+.content-playlist-container-actions-container {
+	position: absolute;
+	right: 1%;
+	top: 1.75%;
+}
+
+.content-playlist-container-actions-container i {
+	transition: transform 0.2s ease-in-out;
+}
+
+.content-playlist-container-actions-container:hover i {
+	transform: scale(1.1);
 }
 
 .content-playlist-container .song-container {

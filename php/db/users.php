@@ -20,7 +20,7 @@ function checkForUserRecord(string $email): array
         throw new InvalidFieldException(UserFields::EMAIL, $email);
     }
 
-    global $conn;
+    $conn = create_conn();
 
     $sql = "select * from users where email = '$email' and active = 1 limit 1";
     $stmt = $conn->prepare($sql);
@@ -72,7 +72,7 @@ function addUser(string $username, string $password, $email): bool
     } catch (\Throwable $th) {
     }
 
-    global $conn;
+    $conn = create_conn();;
 
     $sql = "insert into users (username, password, email) values (?, ?, ?)";
     $stmt = $conn->prepare($sql);
@@ -110,7 +110,7 @@ function updateUserField(int $id, string $field, string $value): void
         throw new InvalidFieldException($field, $value);
     }
 
-    global $conn;
+    $conn = create_conn();;
 
     $sql = "UPDATE users SET $field = ? WHERE id = ?";
     $stmt = $conn->prepare($sql);
@@ -167,8 +167,9 @@ function login(string $username, string $password, string $email): bool|string
     return json_encode($record);
 }
 
-function fetchUserById(int $id): array {
-    global $conn;
+function fetchUserById(int $id): array
+{
+    $conn = create_conn();;
 
     $sql = "select * from users where id = '$id' and active = 1";
     $stmt = $conn->prepare($sql);

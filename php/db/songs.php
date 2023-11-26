@@ -37,7 +37,7 @@ function addSong(int $user_id, string $name, string $song_path, string $picture_
         throw new InvalidFieldException(SongFields::FK_USER_ID_UPLOADED_BY, $user_id);
     }
 
-    global $conn;
+    $conn = create_conn();;
 
     if (!empty($picture_path)) {
         if (!file_exists($picture_path)) {
@@ -65,7 +65,7 @@ function addSong(int $user_id, string $name, string $song_path, string $picture_
 
 function updateSongFields(int $id, string $field, $value): void
 {
-    global $conn;
+    $conn = create_conn();;
 
     if (empty($field) || !in_array($field, SongFields::ALLOWED_FIELDS)) {
         throw new InvalidFieldException('field', $field);
