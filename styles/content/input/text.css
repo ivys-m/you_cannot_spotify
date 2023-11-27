@@ -1,0 +1,19 @@
+@import url('../../colors.css');
+
+.module-text-input-container {
+	display: flex;
+	flex-direction: column;
+}
+
+.module-text-input-container .text-container {
+}
+
+.module-text-input-container .text-container input {
+	width: 100%;
+}
+
+.module-text-input-container .label-container {
+}
+
+.module-text-input-container .label-container label {
+}

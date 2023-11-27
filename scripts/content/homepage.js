@@ -108,6 +108,9 @@ export const setupHomepage = async () => {
 	await showUserLibraries()
 
 	createNewLibrary().addEventListener('click', () => {
-		console.log('create')
+		changeContent('php/content/create_playlist.php', {
+			'text-title': 'playlist name',
+			'text-placeholder': 'playlist name',
+		})
 	})
 }

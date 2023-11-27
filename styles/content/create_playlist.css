@@ -1,0 +1,21 @@
+@import url('../colors.css');
+@import url('./input/text.css');
+
+.create-playlist-container {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	margin: 1.75%;
+}
+
+.create-playlist-container .content {
+	display: flex;
+	flex-direction: row;
+}
+
+.create-playlist-container .input-text {
+	width: 50%;
+}
+
+.create-playlist-container .input-picture {
+}
