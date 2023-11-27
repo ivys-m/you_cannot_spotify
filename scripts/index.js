@@ -1,4 +1,3 @@
-import { createLibrary } from './sidebar.js'
 import { setupHomepage, showUserLibraries } from './content/homepage.js'
 import { setHeaderMessage } from './header.js'
 

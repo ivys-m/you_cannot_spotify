@@ -1,5 +1,6 @@
 @import url('../colors.css');
 @import url('./input/text.css');
+@import url('./input/picture.css');
 
 .create-playlist-container {
 	width: 100%;
@@ -7,7 +8,6 @@
 	position: relative;
 	margin: 1.75%;
 }
-
 .create-playlist-container .content {
 	display: flex;
 	flex-direction: row;
@@ -17,5 +17,24 @@
 	width: 50%;
 }
 
-.create-playlist-container .input-picture {
+.create-playlist-container .button-container {
+	position: absolute;
+	bottom: 10%;
+	width: 100%;
+}
+
+.create-playlist-container .button-container button {
+	background: var(--create-button-background);
+	color: var(--button-text-color);
+	padding: 10px 20px;
+	border: none;
+	border-radius: 14px;
+	cursor: pointer;
+	font-size: 16px;
+	transition: background 0.3s ease;
+	margin: 2.5%;
+}
+
+.create-playlist-container .button-container button:hover {
+	background: var(--create-button-background-hover);
 }

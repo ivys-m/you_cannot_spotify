@@ -49,6 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             <h1><?= $playlist[PlaylistFields::NAME] ?></h1>
         </div>
         <div class="content-playlist-container-actions-container">
+            <i class="bx bx-edit-alt"></i>
             <?php
             if ($saved) {
             ?>

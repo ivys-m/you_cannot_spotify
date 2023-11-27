@@ -15,7 +15,10 @@
     <link rel="stylesheet" href="./styles/index.css">
 
     <!-- scripts -->
-    <script type="module" src="./scripts/header.js" defer></script> 
+    <script type="module" src="./scripts/content/create_playlist.js" defer></script>
+    <script type="module" src="./scripts/content/input/file.js" defer></script>
+
+    <script type="module" src="./scripts/header.js" defer></script>
     <script type="module" src="./scripts/content/homepage.js" defer></script>
     <script type="module" src="./scripts/sidebar.js" defer></script>
     <script type="module" src="./scripts/index.js" defer></script>

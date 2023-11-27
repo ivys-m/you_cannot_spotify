@@ -21,4 +21,9 @@
 
 	--song-container-background: rgb(18, 18, 18);
 	--song-container-author-text-color: rgba(255, 255, 255, 0.45);
+
+	--input-text-background: rgb(18, 18, 18);
+
+	--create-button-background: rgb(18, 18, 18);
+	--create-button-background-hover: rgb(24, 24, 24);
 }

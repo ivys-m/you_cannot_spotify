@@ -16,4 +16,9 @@ $module_counter = 0
             ?>
         </div>
     </div>
+    <div class="button-container">
+        <button id="create-playlist-button">
+            create
+        </button>
+    </div>
 </div>

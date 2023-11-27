@@ -1,7 +1,7 @@
 // pain
 
 import { changeContent } from '../index.js'
-import { createLibrary } from '../sidebar.js'
+import { createLibrary, sidebarNavListLibrariesContaienr } from '../sidebar.js'
 import { setupPlaylistPage } from './playlist.js'
 
 export const userLibrariesContainer = () => document.querySelector('.playlists-container')
@@ -48,10 +48,6 @@ export const addLibraryElementToContainer = (library) => {
 	createLibrary(library)
 }
 
-export const createLibraryElement = (library) => {
-	return library
-}
-
 export const showUserLibraries = async () => {
 	currentLibraryIndex = -maxShowLibraries
 	userLibrariesContainer().innerHTML = ''
@@ -69,7 +65,12 @@ export const showUserLibraries = async () => {
 
 	const text = await response.text()
 	const data = JSON.parse(text)
+	console.table(data)
 	userLibraries = data
+
+	while (sidebarNavListLibrariesContaienr.firstChild) {
+		sidebarNavListLibrariesContaienr.removeChild(sidebarNavListLibrariesContaienr.firstChild)
+	}
 
 	showNextLibraries()
 	updateButtonStatuses()

@@ -1,6 +1,6 @@
 <?php
 
-require_once '../conn.php';
+require_once __DIR__ . '/../conn.php';
 require_once 'errors.php';
 require_once 'users.php';
 require_once 'playlists.php';
@@ -106,5 +106,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else if (isset($input['set-not-active'])) {
         deactivatePlaylistForUser($_SESSION['user-id'], $input['playlist-id']);
         echo 'inactive';
-    } else echo 'unset';
+    }
 }

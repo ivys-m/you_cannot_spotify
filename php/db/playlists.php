@@ -1,6 +1,9 @@
 <?php
 
+require_once __DIR__ . '/../conn.php';
 require_once 'errors.php';
+require_once __DIR__ . '/../save_file.php';
+require_once 'saved.php';
 
 class PlaylistFields
 {
@@ -16,7 +19,7 @@ class PlaylistFields
     ];
 }
 
-function addPlaylist(int $user_id, string $name, string $picture_path = ""): void
+function addPlaylist(int $user_id, string $name, string $picture_path = ""): int|string
 {
     if (empty($name)) {
         throw new InvalidFieldException(PlaylistFields::NAME, $name);
@@ -29,7 +32,7 @@ function addPlaylist(int $user_id, string $name, string $picture_path = ""): voi
     $conn = create_conn();;
 
     if (!empty($picture_path)) {
-        if (!file_exists($picture_path)) {
+        if (!file_exists(__DIR__ . '/../../' . $picture_path)) {
             throw new InvalidFieldException(PlaylistFields::PICTURE_PATH, $picture_path);
         }
 
@@ -50,6 +53,10 @@ function addPlaylist(int $user_id, string $name, string $picture_path = ""): voi
     }
 
     $stmt->execute();
+
+    $inserted_id = $stmt->insert_id;
+
+    return $inserted_id;
 }
 
 function updatePlaylistField(int $id, string $field, $value): void
@@ -80,7 +87,8 @@ function updatePlaylistField(int $id, string $field, $value): void
     $stmt->execute();
 }
 
-function fetchSavedPlaylsitsForUser(int $user_id): array {
+function fetchSavedPlaylsitsForUser(int $user_id): array
+{
     if ($user_id < 0) {
         throw new InvalidFieldException('user_id', $user_id);
     }
@@ -110,7 +118,8 @@ function fetchSavedPlaylsitsForUser(int $user_id): array {
     return $playlists;
 }
 
-function fetchPlaylist(int $id): array {
+function fetchPlaylist(int $id): array
+{
     if ($id < 0) {
         throw new InvalidFieldException('id', $id);
     }
@@ -129,11 +138,21 @@ function fetchPlaylist(int $id): array {
 
     $result = $stmt->get_result();
 
-    if ($result->num_rows <= 0){
+    if ($result->num_rows <= 0) {
         return [];
     }
 
     $playlists = $result->fetch_all(MYSQLI_ASSOC);
 
     return $playlists;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['create-playlist'])) {
+        $path = save_file($_FILES['picture'], $_POST['type'], $_POST['playlist-name']);
+        if ($path === null) die('failed while saving file');
+        echo $path;
+        $playlist_id = addPlaylist($_SESSION['user-id'], $_POST['playlist-name'], $path);
+        savePlaylistForUser($_SESSION['user-id'], $playlist_id);
+    }
 }

@@ -3,17 +3,44 @@
 .module-text-input-container {
 	display: flex;
 	flex-direction: column;
+	background: var(--input-text-background);
+	margin: 5%;
+	border-radius: 14px;
 }
 
 .module-text-input-container .text-container {
+	display: flex;
+	position: relative;
+	margin: 10px;
 }
 
-.module-text-input-container .text-container input {
-	width: 100%;
+.module-text-input-container .text-container label {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%);
+	color: var(--text-color);
 }
 
-.module-text-input-container .label-container {
+.module-text-input-container .input-container {
+	display: flex;
+	margin-top: 5%;
 }
 
-.module-text-input-container .label-container label {
+.module-text-input-container .input-container input {
+	width: 90%;
+	margin: 14px;
+	margin-left: 5%;
+	padding: 10px;
+	border-radius: 14px;
+	text-align: center;
+	background: rgb(24, 24, 24);
+	border: 1px solid rgb(24, 24, 24);
+	color: var(--text-color);
+	outline: none;
+}
+
+.module-text-input-container .input-container input:hover,
+.module-text-input-container .input-container input:focus {
+	border-color: var(--accent-color);
 }

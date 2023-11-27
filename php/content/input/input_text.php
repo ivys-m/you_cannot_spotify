@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     <div class="text-container">
         <label for="text-input"><?= $_GET['text-title'] ?></label>
     </div>
-    <div class="label-container">
+    <div class="input-container">
         <input id="text-input" type="text" placeholder="<?= $_GET['text-placeholder'] ?>">
     </div>
 </div>

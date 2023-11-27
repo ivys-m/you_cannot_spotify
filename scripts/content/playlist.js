@@ -7,6 +7,8 @@ export const setupPlaylistPage = () => {
 	// 	console.log(songId)
 	// })
 
+	const header = document.querySelector('.content-playlist-container-header')
+
 	const savedIcon = document.getElementById('saved-icons')
 	savedIcon.addEventListener('click', () => {
 		const saved = savedIcon.classList.contains('saved')

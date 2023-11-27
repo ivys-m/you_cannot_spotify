@@ -4,6 +4,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 }
 ?>
 
+
 <div class="module-input-picture-container">
-    <img src="db/playlists/pictures/first-playlist-2.png">
+    <div class="image-container">
+        <img id="input-picture-image" src="db/playlists/pictures/first-playlist-2.png">
+    </div>
+
+    <div class="file-input">
+        <input type="file" id="picture-input" accept="image/*">
+    </div>
 </div>

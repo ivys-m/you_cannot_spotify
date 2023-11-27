@@ -21,13 +21,16 @@ homeButton.onclick = async (event) => {
 	event.preventDefault()
 
 	await changeContent('./php/content/homepage.php')
+	sidebarNavListLibrariesContaienr.innerHTML = ''
 	await setupHomepage()
 }
 
 export const createLibrary = (library) => {
 	const existingLibraryElement = document.querySelector(`[data-lib-id="${library.name}"]`)
 
-	if (existingLibraryElement) return
+	if (existingLibraryElement) {
+		return
+	}
 
 	const libraryElement = document.createElement('li')
 	libraryElement.setAttribute('data-lib-id', library['name'])
@@ -40,15 +43,23 @@ export const createLibrary = (library) => {
 		setLibraryContent({ 'id': library['id'], 'header-text': library['name'] })
 	})
 
-	const icon = document.createElement('i')
-	icon.classList.add('bx')
-	icon.classList.add('bx-library')
+	// const icon = document.createElement('i')
+	// icon.classList.add('bx')
+	// icon.classList.add('bx-library')
+	const iconContainer = document.createElement('div')
+	iconContainer.classList.add('img-container')
+
+	const icon = document.createElement('img')
+	icon.src = library['picture_path']
+	icon.alt = library['name']
+
+	iconContainer.appendChild(icon)
 
 	const linkName = document.createElement('span')
 	linkName.classList.add('link-name')
 	linkName.textContent = library['name']
 
-	link.appendChild(icon)
+	link.appendChild(iconContainer)
 	link.appendChild(linkName)
 
 	const tooltip = document.createElement('span')
