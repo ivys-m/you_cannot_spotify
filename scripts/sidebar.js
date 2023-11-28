@@ -26,7 +26,7 @@ homeButton.onclick = async (event) => {
 	await setupHomepage()
 }
 
-if (uploadSongButton !== undefined) {
+if (!!uploadSongButton) {
 	uploadSongButton.onclick = async (event) => {
 		event.preventDefault()
 

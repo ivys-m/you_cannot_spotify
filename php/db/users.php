@@ -124,7 +124,7 @@ function updateUserField(int $id, string $field, string $value): void
     $stmt->execute();
 }
 
-function singup(string $username, string $password, string $email): bool|string
+function singup(string $username, string $password, string $email)
 {
     $result = addUser($username, $password, $email);
 
@@ -145,7 +145,7 @@ function singup(string $username, string $password, string $email): bool|string
     return $record;
 }
 
-function login(string $username, string $password, string $email): bool|string
+function login(string $username, string $password, string $email)
 {
     try {
         $record = checkForUserRecord($email);

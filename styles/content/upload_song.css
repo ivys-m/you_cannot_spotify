@@ -1,12 +1,19 @@
 @import url('../colors.css');
 
 .upload-song-container {
+    width: 100%;
+	height: 100%;
+	position: relative;
+	margin: 1.75%;
 }
 
 .upload-song-container .content {
+    display: flex;
+	flex-direction: row;
 }
 
 .upload-song-container .content .input-text {
+    width: 25%;
 }
 
 .upload-song-container .content .input-picture {

@@ -1,6 +1,6 @@
 <?php
 
-function save_file(mixed $file, string $type, string $name): string|null
+function save_file(array $file, string $type, string $name)
 {
     $relative_db_dir = 'db/';
     if ($type === 'song') {

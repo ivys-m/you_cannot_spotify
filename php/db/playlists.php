@@ -19,7 +19,7 @@ class PlaylistFields
     ];
 }
 
-function addPlaylist(int $user_id, string $name, string $picture_path = ""): int|string
+function addPlaylist(int $user_id, string $name, string $picture_path = "")
 {
     if (empty($name)) {
         throw new InvalidFieldException(PlaylistFields::NAME, $name);
