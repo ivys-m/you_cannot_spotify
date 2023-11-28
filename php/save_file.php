@@ -21,7 +21,7 @@ function save_file(mixed $file, string $type, string $name): string|null
         die('invalid file type');
     }
 
-    if (!isset($_POST['playlist-name'])) {
+    if (!isset($name)) {
         die('missing playlist-name');
     }
 

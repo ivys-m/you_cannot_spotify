@@ -55,13 +55,13 @@
 	top: 1.75%;
 }
 
-.content-playlist-container-actions-container i {
+/* .content-playlist-container-actions-container i {
 	transition: transform 0.2s ease-in-out;
 }
 
 .content-playlist-container-actions-container:hover i {
 	transform: scale(1.1);
-}
+} */
 
 .content-playlist-container .song-container {
 	width: 96%;
@@ -113,10 +113,12 @@
 	transform: translateY(-50%);
 }
 
-.content-playlist-container .song-container .actions-container i {
+.edit-container i,
+.heart-container i {
 	transition: transform 0.2s ease-in-out;
 }
 
-.content-playlist-container .song-container .actions-container:hover i {
-	transform: scale(1.1);
+.edit-container i:hover,
+.heart-container i:hover {
+	transform: scale(1.2);
 }

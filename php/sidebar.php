@@ -14,6 +14,19 @@
                 <span class="tooltip">Home</span>
             </a>
         </li>
+        <?php
+        if ($_SESSION['type'] === 'artist') {
+        ?>
+            <li id="upload-song-button">
+                <a href="#">
+                    <i class='bx bx-upload'></i>
+                    <span class="link-name">Upload Song</span>
+                    <span class="tooltip">Upload Song</span>
+                </a>
+            </li>
+        <?php
+        }
+        ?>
         <li>
             <i class='bx bx-search'></i>
             <input type="text" placeholder="Search">

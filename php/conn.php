@@ -3,8 +3,6 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-$_SESSION['user-id'] = 1;
-
 $servername = 'localhost';
 $username = 'root';
 $password = '';

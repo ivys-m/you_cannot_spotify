@@ -149,9 +149,12 @@ function fetchPlaylist(int $id): array
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['create-playlist'])) {
-        $path = save_file($_FILES['picture'], $_POST['type'], $_POST['playlist-name']);
+        if (isset($_FILES['picture']))
+            $path = save_file($_FILES['picture'], $_POST['type'], $_POST['playlist-name']);
+        else $path = 'db/playlists/pictures/default.png';
         if ($path === null) die('failed while saving file');
         echo $path;
+
         $playlist_id = addPlaylist($_SESSION['user-id'], $_POST['playlist-name'], $path);
         savePlaylistForUser($_SESSION['user-id'], $playlist_id);
     }

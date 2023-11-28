@@ -1,3 +1,9 @@
+<?php
+require_once __DIR__ . '/php/db/users.php';
+require_once __DIR__ . '/php/conn.php';
+$result = login('kaname madoka', 'homuhomu', 'madoka@god.com');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

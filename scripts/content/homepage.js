@@ -1,5 +1,6 @@
 // pain
 
+import { setHeaderMessage } from '../header.js'
 import { changeContent } from '../index.js'
 import { createLibrary, sidebarNavListLibrariesContaienr } from '../sidebar.js'
 import { setupPlaylistPage } from './playlist.js'
@@ -114,4 +115,6 @@ export const setupHomepage = async () => {
 			'text-placeholder': 'playlist name',
 		})
 	})
+
+	setHeaderMessage('welcome :3')
 }

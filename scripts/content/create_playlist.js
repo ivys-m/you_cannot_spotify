@@ -3,9 +3,9 @@ import { setupHomepage } from './homepage.js'
 
 const createPlaylist = (sender) => {
 	const input = document.getElementById('picture-input')
-	const file = input.files[0]
+	let file = input.files[0]
 	if (!file) {
-		return
+		file = 'undefined'
 	}
 
 	const playlistName = document.getElementById('text-input').value

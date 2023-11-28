@@ -49,18 +49,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             <h1><?= $playlist[PlaylistFields::NAME] ?></h1>
         </div>
         <div class="content-playlist-container-actions-container">
-            <i class="bx bx-edit-alt"></i>
-            <?php
-            if ($saved) {
-            ?>
-                <i class="bx bxs-heart saved" id="saved-icons"></i>
-            <?php
-            } else {
-            ?>
-                <i class="bx bx-heart" id="saved-icons"></i>
-            <?php
-            }
-            ?>
+            <div class="edit-container">
+                <i class="bx bx-edit-alt"></i>
+            </div>
+            <div class="heart-container">
+                <!-- why... just... why -->
+                <?php
+                if ($saved) {
+                ?>
+                    <i class="bx bxs-heart saved" id="saved-icons"></i>
+                <?php
+                } else {
+                ?>
+                    <i class="bx bx-heart" id="saved-icons"></i>
+                <?php
+                }
+                ?>
+            </div>
         </div>
     </div>
 

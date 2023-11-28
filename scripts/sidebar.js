@@ -8,6 +8,7 @@ export const sidebar = document.querySelector('.sidebar')
 export const searchButton = document.querySelector('.bx-search')
 export const sidebarNavListLibrariesContaienr = document.querySelector('.libraries-container')
 export const homeButton = document.querySelector('#homeButton')
+export const uploadSongButton = document.querySelector('#upload-song-button')
 
 menuButton.onclick = () => {
 	sidebar.classList.toggle('active')
@@ -23,6 +24,18 @@ homeButton.onclick = async (event) => {
 	await changeContent('./php/content/homepage.php')
 	sidebarNavListLibrariesContaienr.innerHTML = ''
 	await setupHomepage()
+}
+
+if (uploadSongButton !== undefined) {
+	uploadSongButton.onclick = async (event) => {
+		event.preventDefault()
+
+		await changeContent('./php/content/upload_song.php', {
+			'text-title': 'upload song',
+			'text-placeholder': 'song name',
+		})
+		// await setupUploadSong()
+	}
 }
 
 export const createLibrary = (library) => {

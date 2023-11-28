@@ -157,7 +157,7 @@ function login(string $username, string $password, string $email): bool|string
         return false;
     }
 
-    $_SESSION['id'] = $record['id'];
+    $_SESSION['user-id'] = $record['id'];
     $_SESSION['username'] = $record['username'];
     $_SESSION['email'] = $record['email'];
     $_SESSION['date_of_creation'] = $record['date_of_creation'];
