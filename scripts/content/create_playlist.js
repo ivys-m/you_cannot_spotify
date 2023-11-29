@@ -5,7 +5,7 @@ const createPlaylist = (sender) => {
 	const input = document.getElementById('picture-input')
 	let file = input.files[0]
 	if (!file) {
-		file = 'undefined'
+		file = 'default'
 	}
 
 	const playlistName = document.getElementById('text-input').value

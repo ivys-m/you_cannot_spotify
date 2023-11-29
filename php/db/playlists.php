@@ -149,7 +149,7 @@ function fetchPlaylist(int $id): array
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['create-playlist'])) {
-        if (isset($_FILES['picture']))
+        if (isset($_FILES['picture']) && $_FILES['pictures'] !== 'default')
             $path = save_file($_FILES['picture'], $_POST['type'], $_POST['playlist-name']);
         else $path = 'db/playlists/pictures/default.png';
         if ($path === null) die('failed while saving file');

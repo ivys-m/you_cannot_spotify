@@ -24,6 +24,13 @@
                     <span class="tooltip">Upload Song</span>
                 </a>
             </li>
+            <li id="user-songs-button">
+                <a href="#">
+                    <i class='bx bxs-music'></i>
+                    <span class="link-name">Your Songs</span>
+                    <span class="tooltip">Your Songs</span>
+                </a>
+            </li>
         <?php
         }
         ?>

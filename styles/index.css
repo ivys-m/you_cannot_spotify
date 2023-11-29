@@ -68,3 +68,15 @@ body {
 	width: 100%;
 	height: 100%;
 }
+
+h2 {
+	cursor: default;
+}
+
+i {
+	transition: transform 0.2s ease-in-out;
+}
+
+i:hover {
+	transform: scale(1.2);
+}

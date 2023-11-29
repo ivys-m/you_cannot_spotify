@@ -41,8 +41,3 @@
 	color: var(--text-color);
 	outline: none;
 }
-
-.module-input-picture-container .file-input input:hover,
-.module-input-picture-container .file-input input:focus {
-	border-color: var(--accent-color);
-}

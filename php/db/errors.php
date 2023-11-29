@@ -1,5 +1,10 @@
 <?php
 
+// throwing errors is a bad idea
+// so I'm going to do it
+// ...with style
+// (<-- statement from someone who hasn't slept in 3 days)
+
 class FileNotFoundException extends Exception
 {
     protected $filepath;

@@ -15,7 +15,7 @@ function save_file(array $file, string $type, string $name)
 
     if ($file['type'] == 'image/png' || $file['type'] == 'image/jpeg') {
         $relative_db_dir .= 'pictures/';
-    } else if ($file['type'] == 'audio/mp3') {
+    } else if ($file['type'] == 'audio/mpeg') {
         $relative_db_dir .= 'audio/';
     } else {
         die('invalid file type');

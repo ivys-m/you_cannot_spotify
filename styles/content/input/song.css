@@ -1,0 +1,37 @@
+@import url('../../colors.css');
+
+.module-input-file-container {
+	display: flex;
+	flex-direction: column;
+	background: var(--input-text-background);
+	margin: 5%;
+	border-radius: 14px;
+}
+
+.module-input-file-container .text-input-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 10px;
+}
+
+.module-input-file-container .text-input-container h2 {
+}
+
+.module-input-file-container .file-input-container {
+	display: flex;
+	flex-direction: column;
+	margin-top: 5%;
+}
+
+.module-input-file-container .file-input-container input {
+	width: 90%;
+	margin: 14px;
+	padding: 10px;
+	border-radius: 14px;
+	text-align: center;
+	background: rgb(24, 24, 24);
+	border: 1px solid rgb(24, 24, 24);
+	color: var(--text-color);
+	outline: none;
+}

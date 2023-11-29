@@ -112,13 +112,3 @@
 	top: 50%;
 	transform: translateY(-50%);
 }
-
-.edit-container i,
-.heart-container i {
-	transition: transform 0.2s ease-in-out;
-}
-
-.edit-container i:hover,
-.heart-container i:hover {
-	transform: scale(1.2);
-}

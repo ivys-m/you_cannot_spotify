@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             </div>
             <div class="text-container">
                 <div class="title-container">
-                    <h4><?= $song[PlaylistFields::NAME] ?></h4>
+                    <h4><?= $song[SongFields::NAME] ?></h4>
                 </div>
                 <div class="author-container">
                     <h6><?= $song['author'] ?></h6>
