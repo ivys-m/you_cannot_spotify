@@ -1,0 +1,25 @@
+@import url('../colors.css');
+
+.content-playlist-container .button-container {
+	display: flex;
+	justify-content: flex-end;
+	margin-bottom: 1%;
+}
+
+.content-playlist-container .button-container button {
+	height: fit-content;
+	width: fit-content;
+	padding: 10px;
+	border-radius: 14px;
+	text-align: center;
+	background: var(--upload-button-background);
+	border: 1px solid var(--upload-button-background);
+	color: var(--text-color);
+	outline: none;
+	cursor: pointer;
+}
+
+.content-playlist-container .button-container button:hover,
+.content-playlist-container .button-container button:focus {
+	border-color: var(--upload-button-background-hover);
+}

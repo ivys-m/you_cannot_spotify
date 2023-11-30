@@ -1,5 +1,15 @@
+<?php
+require_once __DIR__ . '/../db/playlists.php';
+
+if (isset($_GET['playlist-id'])) {
+    $playlist_record = fetchPlaylist($_GET['playlist-id'])[0];
+
+    $text_value = $playlist_record[PlaylistFields::NAME];
+    $picture_source = $playlist_record[PlaylistFields::PICTURE_PATH];
+}
+?>
+
 <div class="create-playlist-container">
-    <h2>create playlist</h2>
     <div class="content">
         <div class="input-text">
             <?php
@@ -13,8 +23,8 @@
         </div>
     </div>
     <div class="button-container">
-        <button id="create-playlist-button">
-            create
+        <button id="<?= isset($_GET['playlist-id']) ? 'update-playlist-button' : 'create-playlist-button' ?>" data-playlist-id="<?= $_GET['playlist-id'] ?? '-1' ?>">
+            <?= isset($_GET['playlist-id']) ? 'update' : 'create' ?>
         </button>
     </div>
 </div>

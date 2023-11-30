@@ -112,3 +112,49 @@
 	top: 50%;
 	transform: translateY(-50%);
 }
+
+.search-bar-container {
+	align-content: center;
+	vertical-align: middle;
+	width: 100%;
+	position: relative;
+	height: 50px;
+	list-style: none;
+	line-height: 50px;
+	margin-bottom: 3%;
+}
+
+.search-bar-container .search-bar {
+	height: 90%;
+	width: 100%;
+	list-style: none;
+	line-height: 50px;
+	margin-bottom: 3%;
+	align-content: center;
+	vertical-align: middle;
+}
+
+.search-bar-container .search-bar i {
+	height: 50px;
+	min-width: 50px;
+	border-radius: 12px;
+	line-height: 50px;
+	text-align: center;
+	transform: translate(125%, 10%);
+}
+
+.search-bar-container .search-bar input {
+	height: 90%;
+	width: 90%;
+	border-radius: 14px;
+	outline: none;
+	border: none;
+	background-color: var(--sidebar-input-backgronud);
+	padding-left: 55px;
+	font-size: 18px;
+	color: var(--text-color);
+}
+
+.songs-outer-container {
+	overflow-y: auto;
+}

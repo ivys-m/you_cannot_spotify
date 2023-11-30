@@ -113,7 +113,9 @@ export const setupHomepage = async () => {
 		changeContent('php/content/create_playlist.php', {
 			'text-title': 'playlist name',
 			'text-placeholder': 'playlist name',
+			'playlist': '1',
 		})
+		setHeaderMessage('create playlist')
 	})
 
 	setHeaderMessage('welcome :3')

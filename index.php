@@ -21,6 +21,8 @@ $result = login('kaname madoka', 'homuhomu', 'madoka@god.com');
     <link rel="stylesheet" href="./styles/index.css">
 
     <!-- scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+
     <script type="module" src="./scripts/content/upload_song.js" defer></script>
     <script type="module" src="./scripts/content/create_playlist.js" defer></script>
     <script type="module" src="./scripts/content/input/file.js" defer></script>

@@ -17,13 +17,13 @@
         <?php
         if ($_SESSION['type'] === 'artist') {
         ?>
-            <li id="upload-song-button">
+            <!-- <li id="upload-song-button">
                 <a href="#">
                     <i class='bx bx-upload'></i>
                     <span class="link-name">Upload Song</span>
                     <span class="tooltip">Upload Song</span>
                 </a>
-            </li>
+            </li> -->
             <li id="user-songs-button">
                 <a href="#">
                     <i class='bx bxs-music'></i>

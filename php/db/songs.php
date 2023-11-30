@@ -90,7 +90,7 @@ function updateSongFields(int $id, string $field, $value): bool
         throw new FileNotFoundException($value);
     }
 
-    $sql = "UPDATE songs set $field = $value where id = $id";
+    $sql = "UPDATE songs set $field = '$value' where id = $id";
     $stmt = $conn->prepare($sql);
 
     if (!$stmt) {
@@ -125,6 +125,48 @@ function getUserSongs(int $user_id): array
     return $result->fetch_all(MYSQLI_ASSOC);
 }
 
+function getSongFromId(int $user_id): array
+{
+    $conn = create_conn();
+
+    if ($user_id < 0) {
+        throw new InvalidFieldException(UserFields::ID, $user_id);
+    }
+
+    $sql = "SELECT * from songs where id = ? and active = 1";
+    $stmt = $conn->prepare($sql);
+    if (!$stmt) {
+        throw new mysqli_sql_exception('stmt error');
+    }
+
+    $stmt->bind_param('i', $user_id);
+
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
+
+function getAllSongs(): array
+{
+    $conn = create_conn();
+
+    // shucks
+    $sql = "SELECT songs.*, users.username as author
+            from songs
+            join users on songs.fk_user_id_uploaded_by = users.id
+            where songs.active = 1 and users.active = 1";
+    $stmt = $conn->prepare($sql);
+    if (!$stmt) {
+        throw new mysqli_sql_exception('stmt error');
+    }
+
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['create-song'])) {
         if (isset($_FILES['picture-file']) && $_FILES['picture-path'] !== 'default')
@@ -152,5 +194,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($result) echo 'success';
         else echo 'fail';
+    } else if (isset($_POST['update-song'])) {
+        if (!isset($_POST['song-id'])) {
+            die('missing song id');
+        }
+
+        // update anyway cause
+        // non esattamente un grande problema date le poche volte che un song record verrà modificato
+        $result = updateSongFields($_POST['song-id'], SongFields::NAME, $_POST['song-name']);
+
+        if (isset($_FILES['picture-file'])) {
+            $picture_path = save_file($_FILES['picture-file'], $_POST['type'], $_POST['song-name']);
+
+            $result &= updateSongFields($_POST['song-id'], SongFields::PICTURE_PATH, $picture_path);
+        }
+
+        if ($result) echo 'success';
+        else echo 'fail';
+    }
+} else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    if (isset($_GET['get-all'])) {
+        $songs = getAllSongs();
+        echo json_encode($songs);
     }
 }

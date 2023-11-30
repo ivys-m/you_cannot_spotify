@@ -59,7 +59,7 @@ function addPlaylist(int $user_id, string $name, string $picture_path = "")
     return $inserted_id;
 }
 
-function updatePlaylistField(int $id, string $field, $value): void
+function updatePlaylistField(int $id, string $field, $value): bool
 {
     $conn = create_conn();;
 
@@ -71,7 +71,7 @@ function updatePlaylistField(int $id, string $field, $value): void
         throw new InvalidFieldException(PlaylistFields::FK_USER_ID_CREATED_BY, $id);
     }
 
-    if ($field === PlaylistFields::PICTURE_PATH && !file_exists($value)) {
+    if ($field === PlaylistFields::PICTURE_PATH && !file_exists(__DIR__ . '/../../' . $value)) {
         throw new FileNotFoundException($value);
     }
 
@@ -84,7 +84,7 @@ function updatePlaylistField(int $id, string $field, $value): void
 
     $stmt->bind_param('si', $value, $id);
 
-    $stmt->execute();
+    return $stmt->execute();
 }
 
 function fetchSavedPlaylsitsForUser(int $user_id): array
@@ -157,5 +157,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $playlist_id = addPlaylist($_SESSION['user-id'], $_POST['playlist-name'], $path);
         savePlaylistForUser($_SESSION['user-id'], $playlist_id);
+    } else if (isset($_POST['update-playlist'])) {
+        if (!isset($_POST['playlist-id'])) {
+            die('missing playlist id');
+        }
+
+        // update anyway cause
+        // non esattamente un grande problema date le poche volte che un song record verrà modificato
+        $result = updatePlaylistField($_POST['playlist-id'], PlaylistFields::NAME, $_POST['playlist-name']);
+
+        if (isset($_FILES['picture'])) {
+            $picture_path = save_file($_FILES['picture'], $_POST['type'], $_POST['playlist-name']);
+
+            $result &= updatePlaylistField($_POST['playlist-id'], PlaylistFields::PICTURE_PATH, $picture_path);
+        }
+
+        if ($result) echo 'success';
+        else echo 'fail';
     }
 }

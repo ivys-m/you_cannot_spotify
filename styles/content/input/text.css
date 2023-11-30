@@ -1,6 +1,7 @@
 @import url('../../colors.css');
 
 .module-text-input-container {
+	position: inherit;
 	display: flex;
 	flex-direction: column;
 	background: var(--input-text-background);

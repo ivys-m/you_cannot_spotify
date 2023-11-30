@@ -7,6 +7,7 @@
 @import url('content/homepage.css');
 @import url('content/create_playlist.css');
 @import url('content/upload_song.css');
+@import url('content/your_songs.css');
 
 html {
 	background: var(--dark-background);

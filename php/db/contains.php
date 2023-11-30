@@ -44,7 +44,7 @@ function checkForContainsRecord($song_id, $playlist_id, $active): void
     }
 }
 
-function containsSetActive(int $song_id, int $playlist_id, int $active): void
+function containsSetActive(int $song_id, int $playlist_id, int $active): bool
 {
     checkForContainsRecord($song_id, $playlist_id, (int)!$active);
 
@@ -58,25 +58,25 @@ function containsSetActive(int $song_id, int $playlist_id, int $active): void
     }
 
     $update_stmt->bind_param('ii', $song_id, $playlist_id);
-    $update_stmt->execute();
+    return $update_stmt->execute();
 }
 
-function addSongToPlaylist(int $song_id, int $playlist_id): void
+function addSongToPlaylist(int $song_id, int $playlist_id): bool
 {
     try {
         checkForContainsRecord($song_id, $playlist_id, 1);
-        return;
+        return true;
     } catch (\Throwable $th) {
     }
 
     try {
         // setActive checks for existence
-        containsSetActive($song_id, $playlist_id, 1);
-        return;
+        $result = containsSetActive($song_id, $playlist_id, 1);
+        return $result;
     } catch (\Throwable $th) {
     }
 
-    // song isn't already it in playlist
+    // song isn't already in playlist
 
     $conn = create_conn();;
 
@@ -88,17 +88,18 @@ function addSongToPlaylist(int $song_id, int $playlist_id): void
 
     $stmt->bind_param('ii', $song_id, $playlist_id);
 
-    $stmt->execute();
+    return $stmt->execute();
 }
 
 
 
-function removeSongFromPlaylist(int $song_id, int $playlist_id): void
+function removeSongFromPlaylist(int $song_id, int $playlist_id): bool
 {
-    containsSetActive($song_id, $playlist_id, 0);
+    return containsSetActive($song_id, $playlist_id, 0);
 }
 
-function fetchAllPlaylistContains(int $playlist_id): array { 
+function fetchAllPlaylistContains(int $playlist_id): array
+{
     if ($playlist_id < 0) {
         throw new InvalidFieldException(ContainsFields::FK_PLAYLIST_ID, $playlist_id);
     }
@@ -125,4 +126,26 @@ function fetchAllPlaylistContains(int $playlist_id): array {
     $songs = $result->fetch_all(MYSQLI_ASSOC);
 
     return $songs;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['delete'])) {
+        if (!isset($_POST['song-id'], $_POST['playlist-id'])) {
+            die('missing requried ids');
+        }
+
+        $result = removeSongFromPlaylist($_POST['song-id'], $_POST['playlist-id']);
+
+        if ($result) echo 'success';
+        else echo 'fail';
+    } else if (isset($_POST['add'])) {
+        if (!isset($_POST['song-id'], $_POST['playlist-id'])) {
+            die('missing requried ids');
+        }
+
+        $result = addSongToPlaylist($_POST['song-id'], $_POST['playlist-id']);
+
+        if ($result) echo 'success';
+        else echo 'fail';
+    }
 }

@@ -1,9 +1,17 @@
 <?php
 
+require_once __DIR__ . '/../db/songs.php';
+
+if (isset($_GET['song-id'])) {
+    $song_record = getSongFromId($_GET['song-id'])[0];
+
+    $text_value = $song_record[SongFields::NAME];
+    $picture_source = $song_record[SongFields::PICTURE_PATH];
+}
+
 ?>
 
 <div class="upload-song-container">
-    <h2>upload song</h2>
     <div class="content">
         <div class="input-text">
             <?php
@@ -17,13 +25,14 @@
         </div>
         <div class="input-audio-file">
             <?php
-            require('input/input_file.php');
+            if (!isset($_GET['song-id']))
+                require('input/input_file.php');
             ?>
         </div>
     </div>
     <div class="button-container">
-        <button id="upload-song-button">
-            upload
+        <button id="<?= isset($_GET['song-id']) ? 'update-song-button' : 'upload-song-button' ?>" data-song-id="<?= $_GET['song-id'] ?? '-1' ?>">
+            <?= isset($_GET['song-id']) ? 'update' : 'upload' ?>
         </button>
     </div>
 </div>
