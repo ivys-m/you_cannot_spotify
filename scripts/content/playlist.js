@@ -201,7 +201,7 @@ export const setupPlaylistPage = () => {
 		}, 500)
 
 		if (searchButton.value === '') {
-			resetUI()
+			resetUi()
 		} else {
 			debouncedSearch()
 		}

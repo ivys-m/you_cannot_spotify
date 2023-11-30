@@ -3,14 +3,14 @@ require_once __DIR__ . '/../conn.php';
 require_once __DIR__ . '/../db/songs.php';
 ?>
 
-<div class="content-playlist-container" id="your-songs-container">
+<div class="content-playlist-container overflow-hidden">
     <div class="button-container">
         <button id="your-songs-upload-song-button">
             <i class='bx bx-upload'></i>
             upload
         </button>
     </div>
-    <div class="songs">
+    <div class="songs" id="your-songs-container">
         <?php
         $songs = getUserSongs($_SESSION['user-id']);
 

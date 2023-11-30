@@ -5,6 +5,7 @@ require_once '../db/playlists.php';
 require_once '../db/contains.php';
 require_once '../db/users.php';
 require_once '../db/saved.php';
+require_once '../db/songs.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (!isset($_GET['id']))
@@ -15,9 +16,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     $playlist = fetchPlaylist($playlist_id)[0];
 
-    echo $playlist_id;
-
     $playlist_content = fetchAllPlaylistContains($playlist_id);
+
 
     // foreach ($playlist as $key => $value) {
     //     echo "$key: $value<br>";
@@ -29,8 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     //     }
     // }
 
-    foreach ($playlist_content as &$song) {
-        $song['author'] = fetchUserById($song[SongFields::FK_USER_ID_UPLOADED_BY])[UserFields::USERNAME];
+    foreach ($playlist_content as $key => $song) {
+        $playlist_content[$key]['author'] = fetchUserById($song[SongFields::FK_USER_ID_UPLOADED_BY])[UserFields::USERNAME];
     }
 
     try {
@@ -80,8 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     <div class="songs-outer-container" id="songs-outer-container">
         <?php
-        foreach ($playlist_content as $song) {
-            echo implode(',', array_values($song));
+        foreach ($playlist_content as $key => $song) {
         ?>
             <div class="song-container" data-song-id="<?= $song['id'] ?>">
                 <div class="picture-container">

@@ -45,7 +45,7 @@ const uploadSong = (sender) => {
 	})
 }
 
-const updateSong = (sender) => {
+const updateSong = async (sender) => {
 	const songId = sender.getAttribute('data-song-id')
 	console.log(songId)
 

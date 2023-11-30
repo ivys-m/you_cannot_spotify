@@ -23,3 +23,9 @@
 .content-playlist-container .button-container button:focus {
 	border-color: var(--upload-button-background-hover);
 }
+
+.songs {
+	height: calc(100% + 100px);
+	overflow-y: auto;
+	padding-bottom: 300px;
+}

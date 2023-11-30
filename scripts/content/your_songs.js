@@ -21,8 +21,12 @@ export const setupYourSongsPage = () => {
 				})
 					.then((response) => response.text())
 					.then((result) => {
+						console.log(result)
 						if (result === 'success') {
-							container.removeChild(document.getElementById(`your-song-container-${songId}`))
+							const el = document.getElementById(`your-song-container-${songId}`)
+							container.removeChild(el)
+						} else {
+							console.log('fail')
 						}
 					})
 					.catch((error) => console.error(error))

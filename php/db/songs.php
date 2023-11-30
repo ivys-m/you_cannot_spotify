@@ -90,16 +90,22 @@ function updateSongFields(int $id, string $field, $value): bool
         throw new FileNotFoundException($value);
     }
 
-    $sql = "UPDATE songs set $field = '$value' where id = $id";
+    $sql = "update songs set $field = ? where id = ?";
     $stmt = $conn->prepare($sql);
 
     if (!$stmt) {
         throw new mysqli_sql_exception('stmt error');
     }
 
-    // $stmt->bind_param('si', $value, $id);
+    if ($field === SongFields::ACTIVE) {
+        $stmt->bind_param('ii', $value, $id);
+    } else {
+        $stmt->bind_param('si', $value, $id);
+    }
 
-    return $stmt->execute();
+    $stmt->execute();
+
+    return $stmt->affected_rows > 0;
 }
 
 function getUserSongs(int $user_id): array
@@ -183,6 +189,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // $playlist_id = addPlaylist($_SESSION['user-id'], $_POST['playlist-name'], $pic_path);
         $song_id = addSong($_SESSION['user-id'], $_POST['song-name'], $song_path, $pic_path);
         // savePlaylistForUser($_SESSION['user-id'], $playlist_id);
+
     } else if (isset($_POST['delete'])) {
         if (!isset($_POST['song-id'])) {
             die('missing song id');

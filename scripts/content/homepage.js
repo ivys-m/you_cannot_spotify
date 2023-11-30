@@ -14,7 +14,7 @@ export const getBodyWidth = () => document.querySelector('.playlists-container')
 export const getLibraryWidth = () => 100 + 20
 
 export let userLibraries = []
-export const maxShowLibraries = Math.ceil(getBodyWidth() / getLibraryWidth())
+export const maxShowLibraries = Math.floor(getBodyWidth() / getLibraryWidth())
 export let currentLibraryIndex = -maxShowLibraries
 
 export const setLibraryContent = async (params) => {
@@ -45,8 +45,6 @@ export const addLibraryElementToContainer = (library) => {
 
 	libraryContainer.innerHTML = content
 	userLibrariesContainer().appendChild(libraryContainer)
-
-	createLibrary(library)
 }
 
 export const showUserLibraries = async () => {
@@ -73,6 +71,8 @@ export const showUserLibraries = async () => {
 		sidebarNavListLibrariesContaienr.removeChild(sidebarNavListLibrariesContaienr.firstChild)
 	}
 
+	userLibraries.forEach(createLibrary)
+
 	showNextLibraries()
 	updateButtonStatuses()
 }
@@ -87,7 +87,7 @@ const showNextLibraries = () => {
 }
 
 const showPrevLibraries = () => {
-	userLibrariesContainer.innerHTML = ''
+	userLibrariesContainer().innerHTML = ''
 	currentLibraryIndex -= maxShowLibraries
 	if (currentLibraryIndex <= 0) currentLibraryIndex = 0
 	for (let i = currentLibraryIndex; i < currentLibraryIndex + maxShowLibraries; i++) {
@@ -98,9 +98,11 @@ const showPrevLibraries = () => {
 
 const updateButtonStatuses = () => {
 	userLibrariesContainerPrevButton().onclick =
-		currentLibraryIndex - maxShowLibraries <= 0 ? undefined : showPrevLibraries
-	userLibrariesContainerNextButton().disabled =
-		currentLibraryIndex + maxShowLibraries >= userLibraries.length ? undefined : showNextLibraries
+		currentLibraryIndex - maxShowLibraries < 0 ? () => console.log('not-active') : showPrevLibraries
+	userLibrariesContainerNextButton().onclick =
+		currentLibraryIndex + maxShowLibraries >= userLibraries.length
+			? () => console.log('not-active')
+			: showNextLibraries
 }
 
 // userLibrariesContainerNextButton().addEventListener('click', showNextLibraries)
