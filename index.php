@@ -1,9 +1,3 @@
-<?php
-require_once __DIR__ . '/php/db/users.php';
-require_once __DIR__ . '/php/conn.php';
-$result = login('kaname madoka', 'homuhomu', 'madoka@god.com');
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,74 +6,51 @@ $result = login('kaname madoka', 'homuhomu', 'madoka@god.com');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>yuri</title>
 
-    <!-- jquery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-
-    <!-- styles -->
-    <!-- why is including fonts so annoying -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
-    <link rel="stylesheet" href="./styles/index.css">
-
-    <!-- scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
-
-    <script type="module" src="./scripts/content/upload_song.js" defer></script>
-    <script type="module" src="./scripts/content/create_playlist.js" defer></script>
-    <script type="module" src="./scripts/content/input/file.js" defer></script>
-
-    <script type="module" src="./scripts/header.js" defer></script>
-    <script type="module" src="./scripts/content/homepage.js" defer></script>
-    <script type="module" src="./scripts/sidebar.js" defer></script>
-    <script type="module" src="./scripts/index.js" defer></script>
-
-    <!-- icons -->
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
-    <!-- bootstrap / unused -->
-    <link href=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
-    </script>
+    <link rel="stylesheet" href="./styles/user-access.css">
+    <script src="./scripts/user_access.js" defer></script>
 </head>
 
 <body>
-    <?php
-    require('php/sidebar.php');
-    ?>
-
-    <div class="home-content">
-        <div class="home-container">
-            <?php
-            require('php/header.php');
-            ?>
-
-            <div class="main-content text" id="main-content">
-                <?php
-                require('php/content/homepage.php')
-                ?>
+    <div class="wrapper grid-center">
+        <form action="#">
+            <input type="radio" name="radio" id="login" checked>
+            <input type="radio" name="radio" id="register">
+            <div class="btns-wrapper">
+                <label for="login" class="btn">login</label>
+                <label for="register" class="btn">register</label>
             </div>
-        </div>
-    </div>
-
-    <div class="controls">
-        <div class="current-content">
-            <div class="current">
-                <div class="current-details">
-                    <!-- <img src="" alt=""> -->
-                    <i class="bx bx-music"></i>
-                    <div class="current-name-author">
-                        <div class="current-name">current-fuck</div>
-                        <div class="current-author">current-fucker</div>
-                    </div>
+            <div class="form-body">
+                <div class="input-wrapper">
+                    <input type="text" id="email" placeholder=" ">
+                    <label for="email" id="email-label"></label>
+                </div>
+                <div class="input-wrapper username">
+                    <input type="text" id="username" placeholder=" ">
+                    <label for="username">username</label>
+                </div>>
+                <div class="input-wrapper">
+                    <input type="password" id="pswd1" placeholder=" ">
+                    <label for="pswd1">password</label>
+                </div>
+                <div class="input-wrapper pswd2">
+                    <input type="password" id="pswd2" placeholder=" ">
+                    <label for="pswd2">confirm password</label>
+                </div>
+                <div class="input-wrapper type">
+                    <input type="checkbox" id="type">
+                    <label for="type">artist?</label>
+                </div>
+                <button class="submit-btn btn">
+                    sign
+                    <span class="relative">up
+                        <span class="absolute">in</span>
+                    </span>
+                </button>
+                <div class="forgot-password-wrapper">
+                    <a href="#" class="forgot-password" id="error-msg">forgot your password? I don't care</a>
                 </div>
             </div>
-        </div>
-
-        <div class="controls-container">
-        </div>
+        </form>
     </div>
 </body>
 

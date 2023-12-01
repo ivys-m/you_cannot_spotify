@@ -1,0 +1,321 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	color: rgb(255, 255, 255);
+}
+
+body {
+	background: rgb(0, 0, 0);
+	font-size: 20px;
+}
+
+.grid-center {
+	display: grid;
+	place-items: center;
+}
+
+.wrapper {
+	min-height: 100vh;
+}
+
+input[type='radio'] {
+	display: none;
+}
+
+.btn {
+	cursor: pointer;
+}
+
+input,
+button {
+	font-size: inherit;
+}
+
+form {
+	padding: 2em;
+	position: relative;
+	border-radius: 0.5em;
+	overflow: hidden;
+}
+
+form > *,
+form .form-body > * {
+	z-index: 2;
+}
+
+:root {
+	--label-and-forgot-color: rgb(255, 255, 255);
+	--overlay-color: rgb(28, 28, 28);
+}
+
+.input-wrapper {
+	margin-top: 1em;
+}
+
+.btns-wrapper {
+	position: relative;
+	position: absolute;
+	width: 100%;
+	top: 0;
+	left: 0;
+	display: flex;
+	padding: 0.5em 0;
+	text-transform: capitalize;
+	background: rgb(18, 18, 18);
+}
+
+.btns-wrapper + * {
+	margin-top: 2em;
+}
+
+.btns-wrapper .btn {
+	flex: 1;
+	display: inline-block;
+	text-align: center;
+	z-index: 1;
+	transition: 300ms;
+	color: #fff;
+}
+
+.btns-wrapper .btn:before {
+	content: '';
+	height: 10px;
+	width: 10px;
+	position: absolute;
+	top: calc(50% - 5px);
+	border-radius: 50%;
+	transition: 200ms;
+	background: #fff;
+	box-shadow: 0 0 10px #fff, 0 0 20px #fff;
+}
+
+.btns-wrapper .btn:nth-child(1):before {
+	left: 20px;
+	opacity: 0;
+}
+
+.btns-wrapper .btn:nth-child(2):before {
+	right: 20px;
+}
+
+.btns-wrapper:before {
+	content: '';
+	position: absolute;
+	height: 100%;
+	background: rgb(18, 18, 18);
+	top: 100%;
+	top: 0%;
+	border-radius: 0.2em;
+	left: 70%;
+	left: 0%;
+	right: 20%;
+	right: 50%;
+	transition: right 200ms, left 400ms;
+	z-index: 0;
+}
+
+input {
+	border: 0;
+	background: none;
+	padding: 0.3em 0.3em;
+	outline: 0;
+}
+
+input:not(:placeholder-shown) ~ label {
+	transform: translateY(-120%);
+	pointer-events: initial;
+}
+
+.input-wrapper label {
+	display: block;
+	position: absolute;
+	bottom: 0.3em;
+	left: 0.3em;
+	transition: 300ms;
+	text-transform: capitalize;
+	color: var(--label-and-forgot-color);
+	pointer-events: none;
+}
+
+.input-wrapper {
+	height: 3em;
+	position: relative;
+	display: flex;
+	align-items: flex-end;
+	overflow: hidden;
+}
+
+.input-wrapper:before {
+	content: '';
+	position: absolute;
+	background-image: linear-gradient(90deg, rgb(24, 24, 24) 50%, rgb(36, 36, 36) 50%);
+	background-size: 200% 100%;
+	bottom: 0%;
+	width: 100%;
+	height: 3px;
+	transition: background-position 300ms;
+}
+
+.input-wrapper:focus-within:before {
+	background-position: -100%;
+}
+
+.submit-btn {
+	position: relative;
+	z-index: 4;
+	display: block;
+	margin: 1em auto;
+	padding: 0 1em;
+	overflow: hidden;
+	background: rgb(36, 36, 36);
+	border: 0;
+	color: #fff;
+	border-radius: 0.2em;
+	outline: 0;
+	transition: 300ms;
+}
+
+.submit-btn:focus {
+	transform: scale(0.95);
+}
+
+.submit-btn:active {
+	transform: scale(0.9);
+}
+
+.submit-btn span {
+	line-height: 2em;
+}
+
+.submit-btn span.relative {
+	position: relative;
+	display: inline-block;
+	transition: 300ms;
+}
+
+.submit-btn span.absolute {
+	position: absolute;
+	bottom: 100%;
+	left: 0;
+}
+
+.forgot-password-wrapper {
+	text-align: center;
+}
+
+.forgot-password-wrapper:before {
+	content: '';
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: var(--overlay-color);
+	transition: 300ms;
+	z-index: 0;
+}
+
+.forgot-password {
+	position: relative;
+	z-index: 3;
+	color: var(--label-and-forgot-color);
+}
+
+.input-wrapper {
+	transition: 400ms, opacity 200ms;
+}
+
+#login:checked ~ .btns-wrapper .btn:nth-child(1):before {
+	opacity: 1;
+}
+
+#login:checked ~ .btns-wrapper .btn:nth-child(2):before {
+	opacity: 0;
+}
+
+#login:checked ~ .btns-wrapper:before {
+	transition: left 200ms, right 400ms;
+	left: 20%;
+	left: 50%;
+	right: 70%;
+	right: 0%;
+}
+
+#login:checked ~ .form-body .pswd2,
+#login:checked ~ .form-body .username,
+#login:checked ~ .form-body .type {
+	height: 0;
+	margin-top: 0;
+	opacity: 0;
+}
+
+#login:checked ~ .form-body .submit-btn span.relative {
+	transform: translateY(100%);
+}
+
+#login:checked ~ .form-body .submit-btn {
+	background: rgb(36, 36, 36);
+}
+
+#login:checked ~ .form-body .input-wrapper:before {
+	background-image: linear-gradient(90deg, rgb(24, 24, 24) 50%, rgb(36, 36, 36) 50%);
+}
+
+#login:checked ~ .form-body #email-label:before {
+	content: 'Email/Username';
+}
+
+#login:not(:checked) ~ .form-body #email-label:before {
+	content: 'Email';
+}
+
+input[type='checkbox'] {
+	display: none;
+}
+
+input[type='checkbox'] label {
+}
+
+input[type='checkbox'] + label {
+	position: relative;
+	padding-left: 30px;
+	cursor: pointer;
+	display: inline-block;
+	line-height: 1.5;
+	transform: translateY(-50%);
+}
+
+input[type='checkbox'] + label::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 2px;
+	width: 20px;
+	height: 20px;
+	border: 2px solid #fff;
+	background-color: transparent;
+	transition: background-color 0.3s;
+}
+
+input[type='checkbox']:checked + label::before {
+	background-color: #fff;
+}
+
+input[type='checkbox'] + label::after {
+	content: '';
+	position: absolute;
+	left: 6px;
+	top: 10%;
+	width: 6px;
+	height: 12px;
+	border-style: solid;
+	border-width: 0 2px 2px 0;
+	border-color: transparent #000 #000 transparent;
+	transform: rotate(45deg);
+	transition: transform 0.3s;
+}
+
+input[type='checkbox']:checked + label::after {
+	transform: rotate(45deg) scale(1.1);
+}

@@ -15,7 +15,7 @@
             </a>
         </li>
         <?php
-        if ($_SESSION['type'] === 'artist') {
+        if ($_SESSION['type'] === 'Artist') {
         ?>
             <!-- <li id="upload-song-button">
                 <a href="#">
