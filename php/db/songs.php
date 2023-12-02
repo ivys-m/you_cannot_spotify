@@ -103,9 +103,7 @@ function updateSongFields(int $id, string $field, $value): bool
         $stmt->bind_param('si', $value, $id);
     }
 
-    $stmt->execute();
-
-    return $stmt->affected_rows > 0;
+    return $stmt->execute();
 }
 
 function getUserSongs(int $user_id): array
@@ -201,9 +199,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $pic_path = save_file($_FILES['picture-file'], $_POST['type'], $_POST['song-name']);
         else $pic_path = 'db/songs/pictures/default.png';
 
-        if (isset($_FILES['song-file']) && $_FILES['song-file'])
+        if (isset($_FILES['song-file']))
             $song_path = save_file($_FILES['song-file'], $_POST['type'], $_POST['song-name']);
-        else die('missing song path');
+        else $song_path = '';
 
         if ($song_path === null || $pic_path === null) die('failed while saving file');
         echo 'song_path: ' . $song_path . ' - picture_path: ' . $pic_path;
@@ -231,11 +229,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // update anyway cause
         // non esattamente un grande problema date le poche volte che un song record verrà modificato
         $result = updateSongFields($_POST['song-id'], SongFields::NAME, $_POST['song-name']);
+        echo '0: ' . $result . '\n';
 
         if (isset($_FILES['picture-file'])) {
             $picture_path = save_file($_FILES['picture-file'], $_POST['type'], $_POST['song-name']);
 
-            $result &= updateSongFields($_POST['song-id'], SongFields::PICTURE_PATH, $picture_path);
+            $result = $result && updateSongFields($_POST['song-id'], SongFields::PICTURE_PATH, $picture_path);
+            echo '1: ' . $result . '\n';
+        }
+
+        if (isset($_FILES['song-file'])) {
+            $song_path = save_file($_FILES['song-file'], $_POST['type'], $_POST['song-name']);
+
+            $result = $result && updateSongFields($_POST['song-id'], SongFields::SONG_PATH, $song_path);
+            echo '2: ' . $result . '\n';
         }
 
         if ($result) echo 'success';

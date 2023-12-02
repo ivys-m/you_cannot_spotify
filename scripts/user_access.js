@@ -10,14 +10,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	form.addEventListener('submit', function (event) {
 		event.preventDefault()
+		const selectedOption = loginRadio.checked ? 'login' : registerRadio.checked ? 'register' : null
 
 		const emailValue = emailInput.value
 		const usernameValue = usernameInput.value
 		const passwordValue = passwordInput.value
 		const confirmPasswordValue = confirmPasswordInput.value
 		const typeValue = userTypeInput.checked ? 'Artist' : 'Standard'
-
-		const selectedOption = loginRadio.checked ? 'login' : registerRadio.checked ? 'register' : null
 
 		const formData = new FormData()
 		if (selectedOption === 'login') {
@@ -26,6 +25,12 @@ document.addEventListener('DOMContentLoaded', () => {
 			formData.append('password', passwordValue)
 			formData.append('type', typeValue)
 		} else if (selectedOption === 'register') {
+			if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) return
+			if (usernameValue === '') return
+			if (passwordValue === '') return
+			if (confirmPasswordValue === '') return
+			if (passwordValue !== confirmPasswordValue) return
+
 			formData.append('register', '1')
 			formData.append('email', emailValue)
 			formData.append('username', usernameValue)

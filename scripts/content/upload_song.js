@@ -38,9 +38,10 @@ const uploadSong = (sender) => {
 		.then((result) => console.log(result))
 		.catch((error) => console.error(error))
 
-	return new Promise(async (resolve, reject) => {
-		await changeContent('./php/content/your_songs.php')
-		setupYourSongsPage()
+	return new Promise((resolve, reject) => {
+		changeContent('./php/content/your_songs.php').then((response) => {
+			setupYourSongsPage()
+		})
 		resolve()
 	})
 }
@@ -59,11 +60,17 @@ const updateSong = async (sender) => {
 	const pictureFile = pictureInput.files[0]
 	console.log('picture-path: ', pictureFile)
 
+	let songFile = document.getElementById('file-input').files[0]
+	if (!songFile) songFile = null
+
 	const formData = new FormData()
 	formData.append('update-song', 1)
 	formData.append('type', 'song')
 	if (!!pictureFile) {
 		formData.append('picture-file', pictureFile)
+	}
+	if (!!songFile) {
+		formData.append('song-file', songFile)
 	}
 	formData.append('song-name', songName)
 	formData.append('song-id', songId)
@@ -77,13 +84,12 @@ const updateSong = async (sender) => {
 		.then((response) => response.text())
 		.then((result) => {
 			console.log(result)
-			return new Promise(async (resolve, reject) => {
-				await changeContent('./php/content/your_songs.php')
-				setupYourSongsPage()
-				setHeaderMessage('your songs')
-				resolve()
-			})
 		})
+		.then(async (_) => {
+			await changeContent('./php/content/your_songs.php')
+			setupYourSongsPage()
+		})
+		.catch((err) => console.error(err))
 }
 
 document.addEventListener('click', (event) => {

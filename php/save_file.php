@@ -29,7 +29,8 @@ function save_file(array $file, string $type, string $name)
 
     $original_file_name = $file['name'];
 
-    $new_file_name = $unique_id . '.' . time() . $name . '.' . pathinfo($original_file_name, PATHINFO_EXTENSION);
+    $new_file_name = $unique_id . '.' . time() . '.' . pathinfo($original_file_name, PATHINFO_EXTENSION);
+    $new_file_name = str_replace(' ', '_', $new_file_name);
     $upload_file = $relative_db_dir . $new_file_name;
 
     $absolute_upload_path = __DIR__ . '/../' . $upload_file;

@@ -163,6 +163,7 @@ export const setupPlaylistPage = () => {
 		})
 			.then((response) => response.text())
 			.then((data) => {
+				console.log(data)
 				if (data === 'inactive') {
 					savedIcon.classList = 'bx bx-heart'
 				} else if (data === 'active') {

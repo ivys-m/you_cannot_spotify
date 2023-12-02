@@ -46,7 +46,7 @@ export const setupYourSongsPage = () => {
 					'text-title': 'upload song',
 					'text-placeholder': 'song name',
 					'song': '1',
-					'song-id': `${songId}`,
+					'change-song-id': `${songId}`,
 				})
 				setHeaderMessage('update song')
 			}),

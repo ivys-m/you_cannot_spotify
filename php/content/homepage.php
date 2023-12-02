@@ -12,7 +12,7 @@
             </div>
         </div>
 
-        <div class="playlists-container">
+        <div class="playlists-container" id="user-playlist-container">
             <!-- <a class="playlist-container">
                 <div class="playlist-image-container">
                     <i class='bx bx-music'></i>
@@ -21,6 +21,17 @@
                     <h6>template</h6>
                 </div>
             </a> -->
+        </div>
+    </div>
+
+    <div class="user-playlists">
+        <div class="playlists-header">
+            <div class="title">
+                <h5>admin-playlists</h5>
+            </div>
+        </div>
+
+        <div class="playlists-container" id="admin-playlist-container">
         </div>
     </div>
 </div>

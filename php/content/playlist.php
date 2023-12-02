@@ -1,5 +1,8 @@
 <?php
 
+ini_set('display_errors', 'Off');
+error_reporting(0);
+
 require_once '../conn.php';
 require_once '../db/playlists.php';
 require_once '../db/contains.php';
@@ -34,8 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 
     try {
-        checkForSavedRecord($user_id, $playlist_id, 1);
-        $saved = true;
+        $saved = checkForSavedRecord($user_id, $playlist_id, 1);
+        // $saved = true;
     } catch (\Throwable $th) {
         $saved = false;
     }

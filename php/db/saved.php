@@ -41,14 +41,17 @@ function savePlaylistForUser(int $user_id, int $playlist_id): void
     $stmt->execute();
 }
 
-function checkForSavedRecord(int $user_id, int $playlist_id, int $active): void
+// returns bool cause f****** try catch doesn't work
+function checkForSavedRecord(int $user_id, int $playlist_id, int $active): bool
 {
     if ($user_id < 0) {
-        throw new InvalidFieldException(SavedFields::FK_USER_ID, $user_id);
+        return false;
+        // throw new InvalidFieldException(SavedFields::FK_USER_ID, $user_id);
     }
 
     if ($playlist_id < 0) {
-        throw new InvalidFieldException(SavedFields::FK_PLAYLIST_ID, $playlist_id);
+        return false;
+        // throw new InvalidFieldException(SavedFields::FK_PLAYLIST_ID, $playlist_id);
     }
 
     $conn = create_conn();;
@@ -65,13 +68,18 @@ function checkForSavedRecord(int $user_id, int $playlist_id, int $active): void
     $check_stmt->store_result();
 
     if ($check_stmt->num_rows === 0) {
-        throw new RecordNotFoundException('saved');
+        // throw new RecordNotFoundException('saved');
+        return false;
     }
+    return true;
 }
 
 function savedSetActive(int $user_id, int $playlist_id, int $active): void
 {
-    checkForSavedRecord($user_id, $playlist_id, (int)!$active);
+    if (!checkForSavedRecord($user_id, $playlist_id, (int)!$active)) {
+        savePlaylistForUser($user_id, $playlist_id);
+        return;
+    }
 
     $conn = create_conn();;
 
