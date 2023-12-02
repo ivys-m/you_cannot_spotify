@@ -49,7 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
 					json = null
 				}
 				if (json === null) {
-					document.getElementById('error-msg').innerText = response
+					console.log(response)
+					document.getElementById('error-msg').innerText = 'error, try again'
 				} else {
 					console.dir(json)
 					window.location.href = '_index.php'

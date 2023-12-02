@@ -10,7 +10,9 @@
         </div>
 
         <div class="profile-container">
-            <i class="bx bx-music"></i>
+            <div class="picture-container">
+                <img src="<?= $_SESSION['profile_picture_path'] ?? './db/users/pictures/default.png' ?>" alt="<?= $_SESSION['username'] ?>" id="userProfilePicture">
+            </div>
         </div>
     </div>
 </div>

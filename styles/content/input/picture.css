@@ -21,7 +21,7 @@
 	width: auto;
 	height: auto;
 	border-radius: 14px;
-	object-fit: contain;
+	object-fit: scale-down;
 }
 
 .module-input-picture-container .file-input {

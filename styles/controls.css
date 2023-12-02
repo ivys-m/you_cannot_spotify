@@ -1,54 +1,55 @@
 @import url('colors.css');
 
 .controls {
-    position: fixed;
-    top: calc(100% - 78px);
-    left: 0;
-    height: 78px;
-    width: 100%;
-    background: var(--controls-background);
+	position: fixed;
+	top: calc(100% - 78px);
+	left: 0;
+	height: 78px;
+	width: 100%;
+	background: var(--controls-background);
 }
 
 .controls .current-content {
-    position: absolute;
-    color: var(--text-color);
-    bottom: 0;
-    left: 0;
+	position: absolute;
+	color: var(--text-color);
+	bottom: 0;
+	left: 0;
 }
 
 .controls .current-content .current {
-    position: relative;
-    padding: 10px 6px;
-    height: 60px;
-    transform: translateY(-25%);
+	position: relative;
+	padding: 10px 6px;
+	height: 60px;
+	transform: translateY(-25%);
 }
 
 .controls .current-content .current .current-details {
-    display: flex;
-    align-items: center;
+	display: flex;
+	align-items: center;
 }
 
 .current .current-details i,
 .current .current-details img {
-    height: 45px;
-    width: 45px;
-    object-fit: cover;
-    border-radius: 12px;
-    text-align: center;
-    font-size: 48px;
+	height: 45px;
+	width: 45px;
+	object-fit: scale-down;
+	border-radius: 12px;
+	text-align: center;
+	font-size: 48px;
 }
 
 .current .current-details .current-name-author {
-    margin-left: 10px;
+	margin-left: 10px;
 }
 
 .current .current-details .current-name {
-    font-size: 15px;
-    font-weight: 400;
+	font-size: 15px;
+	font-weight: 400;
 }
 
 .current .current-details .current-author {
-    font-size: 12px;
+	font-size: 12px;
 }
 
-.current .controls-container {}
+.current .controls-container {
+}

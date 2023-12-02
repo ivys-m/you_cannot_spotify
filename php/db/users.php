@@ -1,6 +1,8 @@
 <?php
 
 require_once 'errors.php';
+require_once __DIR__ . '\\..\\conn.php';
+require_once __DIR__ . '\\..\\save_file.php';
 
 class UserFields
 {
@@ -95,7 +97,7 @@ function updateUserField(int $id, string $field, string $value): void
         throw new InvalidFieldException(UserFields::ID, $id);
     }
 
-    if ($field === UserFields::PROFILE_PICTURE_PATH && !file_exists($value)) {
+    if ($field === UserFields::PROFILE_PICTURE_PATH && !file_exists(__DIR__ . '/../../' . $value)) {
         throw new FileNotFoundException($value);
     }
 
@@ -117,47 +119,6 @@ function updateUserField(int $id, string $field, string $value): void
     $stmt->execute();
 }
 
-function singup(string $username, string $password, string $email)
-{
-    $result = addUser($username, $password, $email);
-
-    if (!$result) {
-        return false;
-    }
-
-    $record = checkForUserRecord($email);
-
-    $_SESSION['id'] = $record['id'];
-    $_SESSION['username'] = $record['username'];
-    $_SESSION['email'] = $record['email'];
-    $_SESSION['date_of_creation'] = $record['date_of_creation'];
-    $_SESSION['profile_picture_path'] = $record['profile_picture_path'];
-    $_SESSION['type'] = $record['type'];
-
-    return $record;
-}
-
-function login(string $username, string $password, string $email)
-{
-    try {
-        $record = checkForUserRecord($email);
-    } catch (\Throwable $th) {
-        return false;
-    }
-
-    if ($record['username'] !== $username || $record['password'] !== md5($password)) {
-        return false;
-    }
-
-    $_SESSION['user-id'] = $record['id'];
-    $_SESSION['username'] = $record['username'];
-    $_SESSION['email'] = $record['email'];
-    $_SESSION['date_of_creation'] = $record['date_of_creation'];
-    $_SESSION['profile_picture_path'] = $record['profile_picture_path'];
-    $_SESSION['type'] = $record['type'];
-
-    return json_encode($record);
-}
 
 function fetchUserById(int $id): array
 {
@@ -191,4 +152,27 @@ function fetchUserById(int $id): array
     ];
 
     return $user;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['update-user'])) {
+        if (isset($_POST['username'])) {
+            updateUserField($_SESSION['user-id'], UserFields::USERNAME, $_POST['username']);
+            $_SESSION['username'] = $_POST['username'];
+        }
+        if (isset($_POST['password'])) {
+            updateUserField($_SESSION['user-id'], UserFields::PASSWORD, md5($_POST['password']));
+        }
+        if (isset($_FILES['profile-picture'])) {
+            $picture_path = save_file($_FILES['profile-picture'], 'users', $_SESSION['username']);
+
+            updateUserField($_SESSION['user-id'], UserFields::PROFILE_PICTURE_PATH, $picture_path);
+            $_SESSION['profile_picture_path'] = $picture_path;
+        }
+        if (isset($_POST['email'])) {
+            updateUserField($_SESSION['user-id'], UserFields::EMAIL, $_POST['email']);
+            $_SESSION['email'] = $_POST['email'];
+        }
+        echo 'success';
+    }
 }

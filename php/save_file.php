@@ -15,18 +15,21 @@ function save_file(array $file, string $type, string $name)
 
     if ($file['type'] == 'image/png' || $file['type'] == 'image/jpeg') {
         $relative_db_dir .= 'pictures/';
+        $unique_id = uniqid('picture_');
     } else if ($file['type'] == 'audio/mpeg') {
         $relative_db_dir .= 'audio/';
+        $unique_id = uniqid('audio_');
     } else {
         die('invalid file type');
     }
 
     if (!isset($name)) {
-        die('missing playlist-name');
+        die('missing name');
     }
 
     $original_file_name = $file['name'];
-    $new_file_name = uniqid('playlist_') . '.' . time() . $name . '.' . pathinfo($original_file_name, PATHINFO_EXTENSION);
+
+    $new_file_name = $unique_id . '.' . time() . $name . '.' . pathinfo($original_file_name, PATHINFO_EXTENSION);
     $upload_file = $relative_db_dir . $new_file_name;
 
     $absolute_upload_path = __DIR__ . '/../' . $upload_file;
@@ -34,6 +37,6 @@ function save_file(array $file, string $type, string $name)
     if (move_uploaded_file($file['tmp_name'], $absolute_upload_path)) {
         return $upload_file;
     } else {
-        return null;
+        die('huh?!');
     }
 }

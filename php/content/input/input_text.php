@@ -12,9 +12,6 @@ global $text_value;
     </div>
     <div class="input-container">
         <!-- uhm -->
-        <input id="text-input" type="text"
-            placeholder="<?= $_GET['text-placeholder'] ?>"
-            value="<?= $_GET['text-value'] ?? $text_value ?? '' ?>"
-        >
+        <input id="text-input" type="text" placeholder="<?= $_GET['text-placeholder'] ?>" value="<?= $_GET['text-value'] ?? $text_value ?? '' ?>">
     </div>
 </div>

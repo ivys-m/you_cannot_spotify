@@ -41,6 +41,7 @@
 	border-radius: 14px;
 	max-width: 100%;
 	max-height: 100%;
+	object-fit: scale-down;
 }
 
 .content-playlist-container-text-container {
@@ -87,6 +88,7 @@
 	height: 100%;
 	border-radius: 14px;
 	margin: 2.5%;
+	object-fit: scale-down;
 }
 
 .content-playlist-container .song-container .text-container {

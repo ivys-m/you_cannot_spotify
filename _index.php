@@ -64,21 +64,9 @@ require_once __DIR__ . '/php/conn.php';
     </div>
 
     <div class="controls">
-        <div class="current-content">
-            <div class="current">
-                <div class="current-details">
-                    <!-- <img src="" alt=""> -->
-                    <i class="bx bx-music"></i>
-                    <div class="current-name-author">
-                        <div class="current-name">current-fuck</div>
-                        <div class="current-author">current-fucker</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="controls-container">
-        </div>
+        <?php
+        require('php/controls.php');
+        ?>
     </div>
 </body>
 

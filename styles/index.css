@@ -8,6 +8,7 @@
 @import url('content/create_playlist.css');
 @import url('content/upload_song.css');
 @import url('content/your_songs.css');
+@import url('content/user_profile.css');
 
 html {
 	background: var(--dark-background);

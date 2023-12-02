@@ -1,38 +1,56 @@
 .header {
-    height: 5vh;
-    width: calc(100% - 2 * 10px);
-    background: var(--header-background);
-    margin: 10px;
-    border-radius: 14px;
-    position: relative;
+	height: 5vh;
+	width: calc(100% - 2 * 10px);
+	background: var(--header-background);
+	margin: 10px;
+	border-radius: 14px;
+	position: relative;
 }
 
 .message-container {
-    position: absolute;
-    left: 1%;
-    top: 50%;
-    transform: translateY(-50%);
+	position: absolute;
+	left: 1%;
+	top: 50%;
+	transform: translateY(-50%);
 }
 
 .arrow-container {
-    position: absolute;
-    display: flex;
-    left: 47.5%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+	position: absolute;
+	display: flex;
+	left: 47.5%;
+	top: 50%;
+	transform: translate(-50%, -50%);
 }
 
 .arrow-active {
-    color: var(--text-color);
+	color: var(--text-color);
 }
 
 .arrow-inactive {
-    color: var(--gray-text-color);
+	color: var(--gray-text-color);
 }
 
 .profile-container {
-    position: absolute;
-    right: 1%;
-    top: 50%;
-    transform: translateY(-50%);
+	position: absolute;
+	right: 1%;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.profile-container .picture-container {
+	width: 55px;
+	height: 55px;
+
+	transition: transform 0.2s ease-in-out;
+}
+
+.profile-container .picture-container:hover {
+	transform: scale(1.2);
+}
+
+.profile-container .picture-container img {
+	width: 100%;
+	height: 100%;
+	object-fit: scale-down;
+	border-radius: 14px;
 }

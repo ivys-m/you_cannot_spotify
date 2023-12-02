@@ -34,12 +34,11 @@
         <?php
         }
         ?>
-        <li>
+        <!-- <li>
             <i class='bx bx-search'></i>
             <input type="text" placeholder="Search">
-            <!-- <span class="link-name">Search</span> -->
             <span class="tooltip">Search</span>
-        </li>
+        </li> -->
         <div class="libraries-container">
             <!-- <li>
                 <a href="">
