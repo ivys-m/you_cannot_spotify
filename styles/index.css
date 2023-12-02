@@ -12,6 +12,8 @@
 
 html {
 	background: var(--dark-background);
+	-webkit-font-smoothing: antialiased;
+	-webkit-text-size-adjust: 100%;
 }
 
 * {

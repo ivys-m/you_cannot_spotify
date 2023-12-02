@@ -173,9 +173,31 @@ function getAllSongs(): array
     return $result->fetch_all(MYSQLI_ASSOC);
 }
 
+function getSongWithAuthorFromId(int $songId): array
+{
+    $conn = create_conn();
+
+    // shucks
+    $sql = "SELECT songs.*, users.username as author
+            from songs
+            join users on songs.fk_user_id_uploaded_by = users.id
+            where songs.id = ? and songs.active = 1 and users.active = 1";
+    $stmt = $conn->prepare($sql);
+    if (!$stmt) {
+        throw new mysqli_sql_exception('stmt error');
+    }
+
+    $stmt->bind_param('i', $songId);
+
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+    return $result->fetch_assoc();
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['create-song'])) {
-        if (isset($_FILES['picture-file']) && $_FILES['picture-path'] !== 'default')
+        if (isset($_FILES['picture-file']))
             $pic_path = save_file($_FILES['picture-file'], $_POST['type'], $_POST['song-name']);
         else $pic_path = 'db/songs/pictures/default.png';
 
@@ -223,5 +245,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_GET['get-all'])) {
         $songs = getAllSongs();
         echo json_encode($songs);
+    } else if (isset($_GET['song-id'])) {
+        $song = getSongWithAuthorFromId($_GET['song-id']);
+        echo json_encode($song);
     }
 }

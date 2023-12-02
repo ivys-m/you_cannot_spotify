@@ -17,8 +17,10 @@ menuButton.onclick = () => {
 	sidebar.classList.toggle('active')
 }
 
-searchButton.onclick = () => {
-	sidebar.classList.toggle('active')
+if (searchButton !== null) {
+	searchButton.onclick = () => {
+		sidebar.classList.toggle('active')
+	}
 }
 
 homeButton.onclick = async (event) => {

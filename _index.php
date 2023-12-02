@@ -30,11 +30,12 @@ require_once __DIR__ . '/php/conn.php';
     <script type="module" src="./scripts/content/homepage.js" defer></script>
     <script type="module" src="./scripts/sidebar.js" defer></script>
     <script type="module" src="./scripts/index.js" defer></script>
+    <script type="module" src="./scripts/controls.js" defer></script>
 
     <!-- icons -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
-    <!-- bootstrap / unused -->
+    <!-- bootstrap / mostly unused (plain css > bootstrap) -->
     <link href=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
     </script>
@@ -63,11 +64,9 @@ require_once __DIR__ . '/php/conn.php';
         </div>
     </div>
 
-    <div class="controls">
-        <?php
-        require('php/controls.php');
-        ?>
-    </div>
+    <?php
+    require('php/controls.php');
+    ?>
 </body>
 
 </html>

@@ -97,6 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 <div class="actions-container">
                     <!-- <i class='bx bx-dots-horizontal-rounded' id="song-actions" data-song-id="<?= $song[SongFields::ID] ?>">
                     </i> -->
+                    <i class='bx bx-play' id="song-action-play" data-song-id="<?= $song['id'] ?>"></i>
                     <i class='bx bx-x' id="song-action-remove" data-song-id="<?= $song['id'] ?>"></i>
                 </div>
             </div>

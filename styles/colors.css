@@ -29,4 +29,7 @@
 
 	--upload-button-background: rgb(18, 18, 18);
 	--upload-button-background-hover: rgb(0, 0, 0);
+
+	--slider-foreground: rgb(24, 24, 24);
+	--slider-background: rgb(0, 0, 0);
 }

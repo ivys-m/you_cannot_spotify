@@ -1,5 +1,6 @@
 import { changeContent } from '../index.js'
 import { setHeaderMessage } from '../header.js'
+import { enqueueSong, songsQueue } from '../controls.js'
 
 // bad, very bad
 // i'm sorry
@@ -206,6 +207,15 @@ export const setupPlaylistPage = () => {
 			debouncedSearch()
 		}
 	})
+
+	const playButtons = document.querySelectorAll('#song-action-play')
+	playButtons.forEach(
+		(playButton) =>
+			(playButton.onclick = () => {
+				const songId = playButton.getAttribute('data-song-id')
+				enqueueSong(songId)
+			}),
+	)
 }
 
 export const playlistSetHeaderBackground = () => {
