@@ -1,6 +1,7 @@
 # you can (not) spotify
 ---
 ## instructions
+- the project was written using PHP 8.3.0
 - import sql/you_cannot_spotify.sql
 - create user (artist/regular)
 - enjoy
